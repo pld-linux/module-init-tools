@@ -12,7 +12,7 @@ Version:	0.9.9
 Release:	0.2
 License:	GPL
 Group:		Applications/System
-Source0:	ftp://ftp.kernel.org/pub/linux/people/rusty/modules/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}.tar.bz2
 Source1:	kmod.crond
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-modutils.patch
