@@ -14,3 +14,27 @@
    stat_zlib_flags="-Wl,-Bstatic"
  fi])
  
+@@ -19,8 +19,8 @@
+  
+ # Delay adding the zlib_flags until after AC_PROG_CC, so we can distinguish
+ # between a broken cc and a working cc but missing libz.a.
+-LDADD="$LDADD $zlib_flags"
+-AC_SUBST(LDADD)
++ZLIB="$zlib_flags"
++AC_SUBST(ZLIB)
+ AC_SUBST(stat_zlib_flags)
+ 
+ case $target in
+--- module-init-tools-0.9.14/Makefile.am.orig	Tue Aug 26 04:13:18 2003
++++ module-init-tools-0.9.14/Makefile.am	Mon Oct 13 10:59:14 2003
+@@ -8,6 +8,10 @@
+ insmod_static_SOURCES = insmod.c
+ insmod_static_LDFLAGS = -static
+ 
++modprobe_LDADD = $(ZLIB)
++depmod_LDADD = $(ZLIB)
++modinfo_LDADD = $(ZLIB)
++
+ EXTRA_insmod_SOURCES = backwards_compat.c
+ EXTRA_lsmod_SOURCES = backwards_compat.c
+ EXTRA_modprobe_SOURCES = backwards_compat.c
