@@ -25,6 +25,7 @@ BuildRequires:	automake
 BuildRequires:	glibc-static
 BuildRequires:	kernel-headers
 BuildRequires:	zlib-devel
+BuildRequires:	zlib-static
 Conflicts:	modutils < 2.4.25-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
