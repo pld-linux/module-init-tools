@@ -73,7 +73,7 @@ install -d $RPM_BUILD_ROOT{/etc/cron.d,%{_mandir}/man{5,8}}
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ ! -f %{_sysconfdir}/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.conf ]; then
+if [ ! -s %{_sysconfdir}/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.conf ]; then
 	echo "Generating %{_sysconfdir}/modprobe.conf from obsolete /etc/modules.conf"
 	%{_sbindir}/generate-modprobe.conf %{_sysconfdir}/modprobe.conf
 fi
