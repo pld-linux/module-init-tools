@@ -20,7 +20,7 @@ Patch0:		%{name}-modutils.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glibc-static
-PreReq(post):	modutils >= 2.4.25-2
+Requires(post):	modutils >= 2.4.25-2
 Conflicts:	modutils < 2.4.25-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
