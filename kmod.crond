@@ -1,0 +1,2 @@
+# rmmod -a is a two-hand sweep module cleaner
+*/10 * * * *    root    /sbin/rmmod -as
