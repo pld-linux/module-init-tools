@@ -9,7 +9,7 @@ Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	0.9.9
-Release:	0.2
+Release:	0.3
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}.tar.bz2
@@ -64,12 +64,15 @@ install -d $RPM_BUILD_ROOT{/etc/cron.d,%{_mandir}/man{5,8}}
 rm -rf $RPM_BUILD_ROOT
 
 %post
-#TODO
+if [ ! -f %{_sysconfdir}/modprobe.conf ]; then
+	echo "Generating %{_sysconfdir}/modprobe.conf from obsolete /etc/modules.conf"
+	%{_sbindir}/generate-modprobe.conf %{_sysconfdir}/modprobe.conf
+fi
 
 %files
 %defattr(644,root,root,755)
 %doc NEWS ChangeLog README
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/modprobe.conf
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %ghost %{_sysconfdir}/modprobe.conf
 #%attr(640,root,root) /etc/cron.d/kmod
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man*/*
