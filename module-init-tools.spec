@@ -1,3 +1,6 @@
+
+%define		_pre	pre4
+
 Summary:	Module utilities without kerneld
 Summary(de):	Module-Utilities
 Summary(es):	Utilitarios para mСdulos y kerneld
@@ -8,13 +11,13 @@ Summary(ru):	Утилиты для работы с модулями ядра
 Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	0.9.14
-Release:	0.1
+Version:	0.9.15
+Release:	0.%{_pre}.1
 License:	GPL
 Group:		Applications/System
-Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}.tar.bz2
-# Source0-md5:	b97a2c6226934fade702bd79c5211cab
-Source1:	kmod.crond
+Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}-%{_pre}.tar.bz2
+# Source0-md5:	926ab7ad26ea3d991885d37f124427ea
+#Source1:	kmod.crond
 # TODO:
 # - update manual to whis patch too
 Patch0:		%{name}-modutils.patch
@@ -42,7 +45,7 @@ usuwania moduЁСw j╠dra Linuksa (w wersji 2.5.47 i wy©szych). SЁu©y do
 tego samego, co pakiet modutils dla Linuksa 2.4.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}-%{_pre}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
