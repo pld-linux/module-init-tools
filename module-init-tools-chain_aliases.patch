@@ -5,11 +5,11 @@
  			if (!wildcard || !realname)
  				grammar(cmd, filename, linenum);
 -			else if (fnmatch(wildcard,name,0) == 0)
--				result = NOFAIL(strdup(realname));
+-				*alias = NOFAIL(strdup(realname));
 +			else if (fnmatch(wildcard,name,0) == 0) {
-+				if (result)
-+					free(result);
-+				name = result = NOFAIL(strdup(realname));
++				if (*alias)
++					free(*alias);
++				name = *alias = NOFAIL(strdup(realname));
 +			}
  		} else if (strcmp(cmd, "include") == 0) {
  			char *newresult, *newfilename;
