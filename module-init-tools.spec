@@ -8,16 +8,15 @@ Summary(ru):	Утилиты для работы с модулями ядра
 Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	0.9.9
-Release:	0.4
+Version:	0.9.11a
+Release:	0.1
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}.tar.bz2
 Source1:	kmod.crond
-Patch0:		%{name}-DESTDIR.patch
 # TODO:
 # - update manual to whis patch too
-Patch1:		%{name}-modutils.patch
+Patch0:		%{name}-modutils.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glibc-static
@@ -41,7 +40,6 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 %prep
 %setup  -q 
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__aclocal}
