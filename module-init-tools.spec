@@ -41,7 +41,7 @@ usuwania modu³ów j±dra Linuksa (w wersji 2.5.47 i wy¿szych). S³u¿y do
 tego samego, co pakiet modutils dla Linuksa 2.4.
 
 %prep
-%setup  -q 
+%setup  -q
 %patch0 -p1
 %patch1 -p1
 
@@ -49,7 +49,7 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-%configure 
+%configure
 %{__make}
 
 %install
