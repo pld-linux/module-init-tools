@@ -10,7 +10,7 @@ Summary(tr):	Modül programlarý
 Summary(uk):	õÔÉÌ¦ÔÉ ÄÌÑ ÒÏÂÏÔÉ Ú ÍÏÄÕÌÑÍÉ ÑÄÒÁ
 Name:		module-init-tools
 Version:	0.9.9
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.kernel.org/pub/linux/people/rusty/modules/%{name}-%{version}.tar.bz2
@@ -26,7 +26,7 @@ BuildRequires:	glibc-static
 #BuildRequires:	flex
 #Requires:	zlib >= 1.1.3-16
 #Prereq:		awk
-Conflicts:	modutils < 2.4.22-3
+Conflicts:	modutils < 2.4.22-4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
