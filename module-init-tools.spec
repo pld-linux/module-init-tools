@@ -9,7 +9,7 @@ Summary(tr):	Modül programlarý
 Summary(uk):	õÔÉÌ¦ÔÉ ÄÌÑ ÒÏÂÏÔÉ Ú ÍÏÄÕÌÑÍÉ ÑÄÒÁ
 Name:		module-init-tools
 Version:	0.9.11a
-Release:	0.5
+Release:	0.6
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}.tar.bz2
@@ -20,7 +20,6 @@ Patch0:		%{name}-modutils.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glibc-static
-Requires(post):	modutils >= 2.4.25-2
 Conflicts:	modutils < 2.4.25-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -66,7 +65,7 @@ install -d $RPM_BUILD_ROOT{/etc/cron.d,%{_mandir}/man{5,8}}
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ ! -f %{_sysconfdir}/modprobe.conf ]; then
+if [ ! -f %{_sysconfdir}/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.conf ]; then
 	echo "Generating %{_sysconfdir}/modprobe.conf from obsolete /etc/modules.conf"
 	%{_sbindir}/generate-modprobe.conf %{_sysconfdir}/modprobe.conf
 fi
