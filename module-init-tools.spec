@@ -1,6 +1,3 @@
-
-%define		_pre	pre4
-
 Summary:	Module utilities without kerneld
 Summary(de):	Module-Utilities
 Summary(es):	Utilitarios para mСdulos y kerneld
@@ -11,12 +8,13 @@ Summary(ru):	Утилиты для работы с модулями ядра
 Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	0.9.15
+Version:	3.0
+%define	_pre	pre9
 Release:	0.%{_pre}.1
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}-%{_pre}.tar.bz2
-# Source0-md5:	926ab7ad26ea3d991885d37f124427ea
+# Source0-md5:	e05007a2170ae4f838fe1c9a9241c230
 #Source1:	kmod.crond
 # TODO:
 # - update manual to whis patch too
