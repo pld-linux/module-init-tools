@@ -9,7 +9,7 @@ Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.0
-Release:	1
+Release:	3
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
