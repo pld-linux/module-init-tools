@@ -26,13 +26,15 @@
  *-*-linux*) ;;
 --- module-init-tools-0.9.14/Makefile.am.orig	Tue Aug 26 04:13:18 2003
 +++ module-init-tools-0.9.14/Makefile.am	Mon Oct 13 10:59:14 2003
-@@ -8,6 +8,10 @@
+@@ -8,6 +8,12 @@
  insmod_static_SOURCES = insmod.c
  insmod_static_LDFLAGS = -static
  
 +modprobe_LDADD = $(ZLIB)
 +depmod_LDADD = $(ZLIB)
 +modinfo_LDADD = $(ZLIB)
++insmod_LDADD = $(ZLIB)
++insmod_static_LDADD = $(ZLIB)
 +
  EXTRA_insmod_SOURCES = backwards_compat.c
  EXTRA_lsmod_SOURCES = backwards_compat.c
