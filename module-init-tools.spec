@@ -19,9 +19,11 @@ Source1:	kmod.crond
 # - update manual to whis patch too
 Patch0:		%{name}-modutils.patch
 Patch1:		http://piorun.ds.pg.gda.pl/~blues/patches/module-init-tools-chain_aliases.patch
+Patch2:		%{name}-shared-zlib.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glibc-static
+BuildRequires:	zlib-devel
 Conflicts:	modutils < 2.4.25-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -40,15 +42,17 @@ usuwania modu³ów j±dra Linuksa (w wersji 2.5.47 i wy¿szych). S³u¿y do
 tego samego, co pakiet modutils dla Linuksa 2.4.
 
 %prep
-%setup  -q
+%setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-%configure
+%configure \
+	--enable-zlib
 %{__make}
 
 %install
