@@ -24,7 +24,7 @@ Requires(post):	modutils >= 2.4.25-2
 Conflicts:	modutils < 2.4.25-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_bindir		/bin
+%define		_bindir		/sbin
 %define		_sbindir	/sbin
 %define		_sysconfdir	/etc
 
