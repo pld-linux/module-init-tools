@@ -34,8 +34,8 @@
  
  	/* Recursion detection: we need an env var since we can't
  	   change argv[0] (as older modutils uses it to determine
---- module-init-tools-0.9.9.orig/generate-modprobe.conf
-+++ module-init-tools-0.9.9/generate-modprobe.conf
+--- module-init-tools-3.0-pre9.orig/generate-modprobe.conf
++++ module-init-tools-3.0-pre9/generate-modprobe.conf
 @@ -17,9 +17,9 @@
      cp $TESTING_MODPROBE_CONF $MODPROBECONF
  elif [ "$STDIN" = "1" ]; then
@@ -45,6 +45,6 @@
      # In sbin.
 -    /sbin/modprobe.old -c > $MODPROBECONF
 +    /sbin/modprobe.modutils -c > $MODPROBECONF
- elif modprobe.old -c >/dev/null; then
+ elif modprobe.old -c >/dev/null 2>&1; then
      # Somewhere in path.
      modprobe.old -c > $MODPROBECONF

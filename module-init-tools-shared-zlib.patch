@@ -1,6 +1,6 @@
---- module-init-tools-0.9.14/configure.in.orig	2003-09-12 03:52:13.000000000 +0200
-+++ module-init-tools-0.9.14/configure.in	2003-10-04 13:10:30.877054696 +0200
-@@ -6,11 +6,12 @@
+--- module-init-tools-3.0-pre9/configure.in.orig	2004-01-30 05:15:25.000000000 +0100
++++ module-init-tools-3.0-pre9/configure.in	2004-01-30 23:08:59.729518344 +0100
+@@ -6,19 +6,20 @@
  
  # If zlib is required, libz must be linked static, modprobe is in
  # /sbin, libz is in /usr/lib and may not be available when it is run.
@@ -11,10 +11,9 @@
    AC_DEFINE(CONFIG_USE_ZLIB)
 -  zlib_flags="-Wl,-Bstatic -lz -Wl,-Bdynamic"
 +  zlib_flags="-lz"
-   stat_zlib_flags="-Wl,-Bstatic"
  fi])
  
-@@ -19,8 +19,8 @@
+ AC_PROG_CC
   
  # Delay adding the zlib_flags until after AC_PROG_CC, so we can distinguish
  # between a broken cc and a working cc but missing libz.a.
@@ -22,9 +21,9 @@
 -AC_SUBST(LDADD)
 +ZLIB="$zlib_flags"
 +AC_SUBST(ZLIB)
- AC_SUBST(stat_zlib_flags)
  
  case $target in
+ *-*-linux*) ;;
 --- module-init-tools-0.9.14/Makefile.am.orig	Tue Aug 26 04:13:18 2003
 +++ module-init-tools-0.9.14/Makefile.am	Mon Oct 13 10:59:14 2003
 @@ -8,6 +8,10 @@
