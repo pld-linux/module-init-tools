@@ -1,4 +1,3 @@
-
 Summary:	Module utilities without kerneld
 Summary(de):	Module-Utilities
 Summary(es):	Utilitarios para módulos y kerneld
@@ -38,6 +37,11 @@ removing kernel modules for Linux (versions 2.5.47 and above). It
 serves the same function that the "modutils" package serves for Linux
 2.4.
 
+%description -l pl
+Ten pakiet zawiera zestaw programów do wczytywania, wstawiania i
+usuwania modu³ów j±dra Linuksa (w wersji 2.5.47 i wy¿szych). S³u¿y do
+tego samego, co pakiet modutils dla Linuksa 2.4.
+
 %prep
 %setup  -q 
 %patch0 -p1
@@ -54,15 +58,13 @@ serves the same function that the "modutils" package serves for Linux
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/cron.d,%{_mandir}/man{5,8}}
 
-%{__make} install \
-	install-am \
+%{__make} install install-am \
 	DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} \
 	INSTALL=install
 
 #install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/kmod
 
 :> $RPM_BUILD_ROOT%{_sysconfdir}/modprobe.conf
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
