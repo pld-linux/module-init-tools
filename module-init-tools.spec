@@ -1,3 +1,5 @@
+%bcond_without	dist_kernel	
+
 Summary:	Module utilities without kerneld
 Summary(de):	Module-Utilities
 Summary(es):	Utilitarios para módulos y kerneld
@@ -23,7 +25,7 @@ Patch2:		%{name}-shared-zlib.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glibc-static
-BuildRequires:	kernel-headers
+%{!?with_dist_kernel:BuildRequires:	kernel-headers}
 BuildRequires:	zlib-devel
 BuildRequires:	zlib-static
 Conflicts:	modutils < 2.4.25-2
