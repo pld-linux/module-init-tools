@@ -9,13 +9,11 @@ Summary(tr):	Mod¸l programlar˝
 Summary(uk):	ı‘…Ã¶‘… ƒÃ— “œ¬œ‘… ⁄ Õœƒ’Ã—Õ… —ƒ“¡
 Name:		module-init-tools
 Version:	3.0
-%define	_pre	pre9
-Release:	0.%{_pre}.1
+Release:	1
 License:	GPL
 Group:		Applications/System
-Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}-%{_pre}.tar.bz2
-# Source0-md5:	e05007a2170ae4f838fe1c9a9241c230
-#Source1:	kmod.crond
+Source0:	ftp://ftp.kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
+# Source0-md5:	f8bfc480c4168978eca7037cd341da07
 # TODO:
 # - update manual to whis patch too
 Patch0:		%{name}-modutils.patch
@@ -43,7 +41,7 @@ usuwania modu≥Ûw j±dra Linuksa (w wersji 2.5.47 i wyøszych). S≥uøy do
 tego samego, co pakiet modutils dla Linuksa 2.4.
 
 %prep
-%setup -q -n %{name}-%{version}-%{_pre}
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -82,6 +80,5 @@ fi
 %defattr(644,root,root,755)
 %doc NEWS ChangeLog README
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/modprobe.conf
-#%attr(640,root,root) /etc/cron.d/kmod
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man*/*
