@@ -27,7 +27,6 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_bindir		/sbin
 %define		_sbindir	/sbin
-%define		_sysconfdir	/etc
 
 %description
 This package contains a set of programs for loading, inserting, and
