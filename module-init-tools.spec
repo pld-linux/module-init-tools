@@ -19,12 +19,6 @@ Patch1:		%{name}-modutils.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glibc-static
-#%%{!?_without_static:BuildRequires:	zlib-static >= 1.1.4}
-#%%{?_without_static:BuildRequires:	zlib-devel}
-#BuildRequires:	bison
-#BuildRequires:	flex
-#Requires:	zlib >= 1.1.3-16
-#Prereq:		awk
 Conflicts:	modutils < 2.4.22-4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
