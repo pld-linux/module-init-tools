@@ -15,6 +15,8 @@ Group:		Applications/System
 Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}.tar.bz2
 Source1:	kmod.crond
 Patch0:		%{name}-DESTDIR.patch
+# TODO:
+# - update manual to whis patch too
 Patch1:		%{name}-modutils.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
