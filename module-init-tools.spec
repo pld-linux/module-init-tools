@@ -13,6 +13,7 @@ Release:	0.1
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}.tar.bz2
+# Source0-md5:	d61517a904d005fd83c954dd7fe49f27
 Source1:	kmod.crond
 # TODO:
 # - update manual to whis patch too
