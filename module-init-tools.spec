@@ -23,7 +23,7 @@ Patch3:		%{name}-insmod-zlib.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glibc-static
-BuildRequires:	zlib-devel
+BuildRequires:	zlib-static
 Conflicts:	modutils < 2.4.25-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
