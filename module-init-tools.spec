@@ -23,6 +23,7 @@ Patch2:		%{name}-shared-zlib.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glibc-static
+BuildRequires:	kernel-headers
 BuildRequires:	zlib-devel
 Conflicts:	modutils < 2.4.25-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
