@@ -9,7 +9,7 @@ Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	0.9.11a
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}.tar.bz2
@@ -20,7 +20,7 @@ Patch0:		%{name}-modutils.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glibc-static
-Conflicts:	modutils < 2.4.22-4
+Conflicts:	modutils < 2.4.25-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
