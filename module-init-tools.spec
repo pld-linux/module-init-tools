@@ -8,12 +8,12 @@ Summary(ru):	Утилиты для работы с модулями ядра
 Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	0.9.13
+Version:	0.9.14
 Release:	0.1
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}.tar.bz2
-# Source0-md5:	f342d41c18927f40695e2647f51abb4e
+# Source0-md5:	b97a2c6226934fade702bd79c5211cab
 Source1:	kmod.crond
 # TODO:
 # - update manual to whis patch too
@@ -56,7 +56,8 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/cron.d,%{_mandir}/man{5,8}}
 
 %{__make} install install-am \
-	DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} \
+	DESTDIR=$RPM_BUILD_ROOT \
+	mandir=%{_mandir} \
 	INSTALL=install
 
 #install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/kmod
