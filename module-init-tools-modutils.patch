@@ -37,9 +37,9 @@
 --- module-init-tools-0.9.9.orig/generate-modprobe.conf
 +++ module-init-tools-0.9.9/generate-modprobe.conf
 @@ -17,9 +17,9 @@
- 
- if [ x"$TESTING_MODPROBE_CONF" != x ]; then
      cp $TESTING_MODPROBE_CONF $MODPROBECONF
+ elif [ "$STDIN" = "1" ]; then
+     cat > $MODPROBECONF
 -elif [ -x /sbin/modprobe.old ]; then
 +elif [ -x /sbin/modprobe.modutils ]; then
      # In sbin.
