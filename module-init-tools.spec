@@ -14,7 +14,7 @@ Release:        0.%{_pre}.1
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}-%{_pre}.tar.bz2
-# Source0-md5:	f8bfc480c4168978eca7037cd341da07
+# Source0-md5:	62dc4a3ba3c63513b3600a75986caa4f
 # TODO:
 # - update manual to whis patch too
 Patch0:		%{name}-modutils.patch
