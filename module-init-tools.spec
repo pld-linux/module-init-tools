@@ -8,8 +8,8 @@ Summary(ru):	Утилиты для работы с модулями ядра
 Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	0.9.11a
-Release:	0.6
+Version:	0.9.12
+Release:	0.1
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}.tar.bz2
