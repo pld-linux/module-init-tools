@@ -75,4 +75,5 @@ fi
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/modprobe.conf
 #%attr(640,root,root) /etc/cron.d/kmod
 %attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_bindir}/*
 %{_mandir}/man*/*
