@@ -9,7 +9,7 @@ Summary(tr):	Modül programlarý
 Summary(uk):	õÔÉÌ¦ÔÉ ÄÌÑ ÒÏÂÏÔÉ Ú ÍÏÄÕÌÑÍÉ ÑÄÒÁ
 Name:		module-init-tools
 Version:	0.9.11a
-Release:	0.3
+Release:	0.4
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/modules/%{name}-%{version}.tar.bz2
@@ -20,6 +20,7 @@ Patch0:		%{name}-modutils.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glibc-static
+PreReq(post):	modutils >= 2.4.25-2
 Conflicts:	modutils < 2.4.25-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
