@@ -22,6 +22,7 @@ Patch2:		%{name}-shared-zlib.patch
 Patch3:		%{name}-insmod-zlib.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils
 BuildRequires:	glibc-static
 BuildRequires:	zlib-static
