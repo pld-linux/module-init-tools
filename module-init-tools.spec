@@ -17,11 +17,12 @@ Source0:	ftp://ftp.kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%
 # TODO:
 # - update manual to whis patch too
 Patch0:		%{name}-modutils.patch
-Patch1:		http://piorun.ds.pg.gda.pl/~blues/patches/module-init-tools-chain_aliases.patch
+Patch1:		%{name}-chain_aliases.patch
 Patch2:		%{name}-shared-zlib.patch
 Patch3:		%{name}-insmod-zlib.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	docbook-utils
 BuildRequires:	glibc-static
 BuildRequires:	zlib-static
 Conflicts:	modutils < 2.4.25-2
