@@ -8,16 +8,17 @@ Summary(ru):	Утилиты для работы с модулями ядра
 Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	3.0
-Release:	4
+Version:	3.1
+%define _pre    pre5
+Release:        0.%{_pre}.1
 License:	GPL
 Group:		Applications/System
-Source0:	ftp://ftp.kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}-%{_pre}.tar.bz2
 # Source0-md5:	f8bfc480c4168978eca7037cd341da07
 # TODO:
 # - update manual to whis patch too
 Patch0:		%{name}-modutils.patch
-Patch1:		http://piorun.ds.pg.gda.pl/~blues/patches/module-init-tools-chain_aliases.patch
+#Patch1:		http://piorun.ds.pg.gda.pl/~blues/patches/module-init-tools-chain_aliases.patch
 Patch2:		%{name}-shared-zlib.patch
 Patch3:		%{name}-insmod-zlib.patch
 BuildRequires:	autoconf
@@ -42,9 +43,9 @@ usuwania moduЁСw j╠dra Linuksa (w wersji 2.5.47 i wy©szych). SЁu©y do
 tego samego, co pakiet modutils dla Linuksa 2.4.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}-%{_pre}
 %patch0 -p1
-%patch1 -p1
+#%patch1 -p0
 %patch2 -p1
 %patch3 -p1
 
