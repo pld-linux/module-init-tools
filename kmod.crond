@@ -1,2 +1,2 @@
 # rmmod -a is a two-hand sweep module cleaner
-*/10 * * * *	root	[ "2.4" == "$(awk '{split($3,v,".");OFS=".";print(v[1],v[2]);}' /proc/version)" ] && /sbin/rmmod.modutils -as
+*/10 * * * *	root	[ "2.4" == "$(awk '{split($3,v,".");OFS=".";print(v[1],v[2]);}' /proc/version)" ] && /sbin/rmmod.modutils -as || :
