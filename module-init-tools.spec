@@ -13,21 +13,21 @@ Summary(ru):	Утилиты для работы с модулями ядра
 Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	3.1
-%define	_pre	pre5
+Version:	3.2
+%define	_pre	pre9
 Release:	0.%{_pre}.1
 License:	GPL
 Group:		Applications/System
-Source0:	ftp://ftp.kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}-%{_pre}.tar.bz2
-# Source0-md5:	62dc4a3ba3c63513b3600a75986caa4f
+Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}-%{_pre}.tar.bz2
+# Source0-md5:	f0ede5936c52e3d59411bd9594ad364f
 # TODO:
 # - update manual to whis patch too
 Patch0:		%{name}-modutils.patch
-Patch1:		http://piorun.ds.pg.gda.pl/~blues/patches/module-init-tools-chain_aliases.patch
-Patch2:		%{name}-shared-zlib.patch
-Patch3:		%{name}-insmod-zlib.patch
+Patch1:		%{name}-shared-zlib.patch
+Patch2:		%{name}-insmod-zlib.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	glibc-static
 BuildRequires:	zlib-static
 Conflicts:	modutils < 2.4.25-2
@@ -50,9 +50,8 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 %prep
 %setup -q -n %{name}-%{version}-%{_pre}
 %patch0 -p1
-#%patch1 -p0
+%patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 %{__aclocal}
@@ -71,8 +70,6 @@ install -d $RPM_BUILD_ROOT{/etc/cron.d,%{_mandir}/man{5,8}}
 	mandir=%{_mandir} \
 	INSTALL=install
 
-#install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/kmod
-
 :> $RPM_BUILD_ROOT%{_sysconfdir}/modprobe.conf
 
 %clean
@@ -86,7 +83,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc NEWS ChangeLog README
+%doc ChangeLog NEWS README
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/modprobe.conf
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man*/*
