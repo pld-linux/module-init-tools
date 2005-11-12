@@ -8,18 +8,18 @@ Summary(ru):	õÔÉÌÉÔÙ ÄÌÑ ÒÁÂÏÔÙ Ó ÍÏÄÕÌÑÍÉ ÑÄÒÁ
 Summary(tr):	Modül programlarý
 Summary(uk):	õÔÉÌ¦ÔÉ ÄÌÑ ÒÏÂÏÔÉ Ú ÍÏÄÕÌÑÍÉ ÑÄÒÁ
 Name:		module-init-tools
-Version:	3.1
-Release:	1
+Version:	3.2
+%define	_pre	pre9
+Release:	0.%{_pre}.1
 License:	GPL
 Group:		Applications/System
-Source0:	ftp://ftp.kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	8ddecbcf0e56aef8617f67a3906faf3e
+Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}-%{_pre}.tar.bz2
+# Source0-md5:	f0ede5936c52e3d59411bd9594ad364f
 # TODO:
-# - update manual to whis patch too
+# - update manual to this patch too
 Patch0:		%{name}-modutils.patch
-Patch1:		%{name}-chain_aliases.patch
-Patch2:		%{name}-shared-zlib.patch
-Patch3:		%{name}-insmod-zlib.patch
+Patch1:		%{name}-shared-zlib.patch
+Patch2:		%{name}-insmod-zlib.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	docbook-dtd41-sgml
@@ -44,11 +44,10 @@ usuwania modu³ów j±dra Linuksa (w wersji 2.5.47 i wy¿szych). S³u¿y do
 tego samego, co pakiet modutils dla Linuksa 2.4.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}-%{_pre}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 %{__aclocal}
@@ -67,8 +66,6 @@ install -d $RPM_BUILD_ROOT{/etc/cron.d,%{_mandir}/man{5,8}}
 	mandir=%{_mandir} \
 	INSTALL=install
 
-#install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/kmod
-
 :> $RPM_BUILD_ROOT%{_sysconfdir}/modprobe.conf
 
 %clean
@@ -82,7 +79,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc NEWS ChangeLog README
+%doc ChangeLog NEWS README
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/modprobe.conf
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man*/*
