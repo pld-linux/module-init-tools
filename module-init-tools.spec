@@ -8,13 +8,12 @@ Summary(ru):	Утилиты для работы с модулями ядра
 Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	3.2
-%define	_pre	pre9
-Release:	0.%{_pre}.1
+Version:	3.2.1
+Release:	0.1
 License:	GPL
 Group:		Applications/System
-Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}-%{_pre}.tar.bz2
-# Source0-md5:	f0ede5936c52e3d59411bd9594ad364f
+Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
+# Source0-md5:	29aa770c6ce92cbbc6da00161d2784d8
 # TODO:
 # - update manual to this patch too
 Patch0:		%{name}-modutils.patch
@@ -44,7 +43,7 @@ usuwania moduЁСw j╠dra Linuksa (w wersji 2.5.47 i wy©szych). SЁu©y do
 tego samego, co pakiet modutils dla Linuksa 2.4.
 
 %prep
-%setup -q -n %{name}-%{version}-%{_pre}
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
