@@ -8,12 +8,12 @@ Summary(ru):	Утилиты для работы с модулями ядра
 Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	3.2.1
-Release:	1
+Version:	3.2.2
+Release:	0.1
 License:	GPL
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	29aa770c6ce92cbbc6da00161d2784d8
+# Source0-md5:	a1ad0a09d3231673f70d631f3f5040e9
 # TODO:
 # - update manual to this patch too
 Patch0:		%{name}-modutils.patch
