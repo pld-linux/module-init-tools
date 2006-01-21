@@ -1,0 +1,41 @@
+diff -Nur module-init-tools-3.2.2/modprobe.c module-init-tools-3.2.2.modprobe_d/modprobe.c
+--- module-init-tools-3.2.2/modprobe.c	2005-12-02 00:42:09.000000000 +0100
++++ module-init-tools-3.2.2.modprobe_d/modprobe.c	2006-01-21 03:11:18.000000000 +0100
+@@ -1185,7 +1185,8 @@
+ 	if (dir) {
+ 		struct dirent *i;
+ 		while ((i = readdir(dir)) != NULL) {
+-			if (!streq(i->d_name,".") && !streq(i->d_name,"..")) {
++			if (!streq(i->d_name,".") && !streq(i->d_name,"..") &&
++					strcmp(i->d_name + strlen(i->d_name) - 5, ".conf") == 0) {
+ 				char sub[strlen(filename) + 1
+ 					 + strlen(i->d_name) + 1];
+ 
+@@ -1211,8 +1212,8 @@
+ 
+ static const char *default_configs[] = 
+ {
+-	"/etc/modprobe.conf",
+ 	"/etc/modprobe.d",
++	"/etc/modprobe.conf",
+ };
+ 
+ static void read_toplevel_config(const char *filename,
+@@ -1236,9 +1237,8 @@
+ 
+ 	/* Try defaults. */
+ 	for (i = 0; i < ARRAY_SIZE(default_configs); i++) {
+-		if (read_config(default_configs[i], name, dump_only, removing,
+-				options, commands, aliases, blacklist))
+-			return;
++		read_config(default_configs[i], name, dump_only, removing,
++				options, commands, aliases, blacklist);
+ 	}
+ }
+ 
+@@ -1660,3 +1660,5 @@
+ 
+ 	return 0;
+ }
++
++// vim: ts=4
