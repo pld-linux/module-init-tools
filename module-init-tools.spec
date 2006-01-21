@@ -20,6 +20,7 @@ Patch0:		%{name}-modutils.patch
 Patch1:		%{name}-shared-zlib.patch
 Patch2:		%{name}-insmod-zlib.patch
 Patch3:		%{name}-sparc.patch
+Patch4:		%{name}-modprobe_d.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	docbook-dtd41-sgml
@@ -49,6 +50,7 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__aclocal}
@@ -60,7 +62,7 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/cron.d,%{_mandir}/man{5,8}}
+install -d $RPM_BUILD_ROOT{/etc/{cron.d,modprobe.d},%{_mandir}/man{5,8}}
 
 %{__make} install install-am \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -82,5 +84,6 @@ fi
 %defattr(644,root,root,755)
 %doc ChangeLog NEWS README
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/modprobe.conf
+%{_sysconfdir}/modprobe.d
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man*/*
