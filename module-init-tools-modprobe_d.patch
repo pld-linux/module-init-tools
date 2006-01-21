@@ -11,19 +11,28 @@ diff -Nur module-init-tools-3.2.2/modprobe.c module-init-tools-3.2.2.modprobe_d/
  				char sub[strlen(filename) + 1
  					 + strlen(i->d_name) + 1];
  
-@@ -1211,8 +1212,8 @@
+@@ -1209,11 +1210,13 @@
+ 	return ret;
+ }
  
++#define MODPROBE_D_CONF	"/etc/modprobe.d"
  static const char *default_configs[] = 
  {
--	"/etc/modprobe.conf",
- 	"/etc/modprobe.d",
-+	"/etc/modprobe.conf",
++	MODPROBE_D_CONF,
+ 	"/etc/modprobe.conf",
+-	"/etc/modprobe.d",
  };
++char *modprobe_d_ver = NULL;
  
  static void read_toplevel_config(const char *filename,
-@@ -1236,9 +1237,8 @@
+ 				 const char *name,
+@@ -1235,10 +1238,12 @@
+ 	}
  
  	/* Try defaults. */
++	if ( modprobe_d_ver != NULL )
++		read_config(modprobe_d_ver, name, dump_only, removing,
++				options, commands, aliases, blacklist);
  	for (i = 0; i < ARRAY_SIZE(default_configs); i++) {
 -		if (read_config(default_configs[i], name, dump_only, removing,
 -				options, commands, aliases, blacklist))
@@ -33,7 +42,18 @@ diff -Nur module-init-tools-3.2.2/modprobe.c module-init-tools-3.2.2.modprobe_d/
  	}
  }
  
-@@ -1660,3 +1660,5 @@
+@@ -1547,6 +1552,10 @@
+ 				    + sizeof("/modules.symbols")));
+ 	sprintf(symfilename, "%s/modules.symbols", dirname);
+ 
++	modprobe_d_ver = NOFAIL(malloc(strlen(buf.release)
++					+ sizeof(MODPROBE_D_CONF) + 1));
++	sprintf(modprobe_d_ver, "%s/%s", MODPROBE_D_CONF, buf.release);
++
+ 	/* Old-style -t xxx wildcard?  Only with -l. */
+ 	if (list_only) {
+ 		if (optind+1 < argc)
+@@ -1660,3 +1669,5 @@
  
  	return 0;
  }
