@@ -84,6 +84,6 @@ fi
 %defattr(644,root,root,755)
 %doc ChangeLog NEWS README
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/modprobe.conf
-%{_sysconfdir}/modprobe.d
+%dir %{_sysconfdir}/modprobe.d
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man*/*
