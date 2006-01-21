@@ -6,7 +6,7 @@ diff -Nur module-init-tools-3.2.2/modprobe.c module-init-tools-3.2.2.modprobe_d/
  		struct dirent *i;
  		while ((i = readdir(dir)) != NULL) {
 -			if (!streq(i->d_name,".") && !streq(i->d_name,"..")) {
-+			if (!streq(i->d_name,".") && !streq(i->d_name,"..") &&
++			if (strlen(i->d_name) > 5 &&
 +					strcmp(i->d_name + strlen(i->d_name) - 5, ".conf") == 0) {
  				char sub[strlen(filename) + 1
  					 + strlen(i->d_name) + 1];
