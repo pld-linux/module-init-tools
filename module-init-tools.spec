@@ -23,8 +23,8 @@ Patch3:		%{name}-sparc.patch
 Patch4:		%{name}-modprobe_d.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	docbook-dtd41-sgml
-BuildRequires:	docbook-utils
+#BuildRequires:	docbook-dtd41-sgml
+#BuildRequires:	docbook-utils
 BuildRequires:	glibc-static
 BuildRequires:	zlib-static
 Conflicts:	modutils < 2.4.25-2
