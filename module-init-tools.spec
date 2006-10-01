@@ -9,7 +9,7 @@ Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.2.2
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
@@ -27,7 +27,7 @@ BuildRequires:	automake
 #BuildRequires:	docbook-utils
 BuildRequires:	glibc-static
 BuildRequires:	zlib-static
-Conflicts:	modutils < 2.4.25-2
+Obsoletes:	modutils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_bindir		/sbin
