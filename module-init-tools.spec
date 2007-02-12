@@ -1,12 +1,12 @@
 Summary:	Module utilities without kerneld
-Summary(de):	Module-Utilities
-Summary(es):	Utilitarios para módulos y kerneld
-Summary(fr):	Utiltaires de modules
-Summary(pl):	Narzêdzia do modu³ów j±dra systemu bez kerneld
-Summary(pt_BR):	Utilitários para módulos e kerneld
-Summary(ru):	õÔÉÌÉÔÙ ÄÌÑ ÒÁÂÏÔÙ Ó ÍÏÄÕÌÑÍÉ ÑÄÒÁ
-Summary(tr):	Modül programları
-Summary(uk):	õÔÉÌ¦ÔÉ ÄÌÑ ÒÏÂÏÔÉ Ú ÍÏÄÕÌÑÍÉ ÑÄÒÁ
+Summary(de.UTF-8):   Module-Utilities
+Summary(es.UTF-8):   Utilitarios para mÃ³dulos y kerneld
+Summary(fr.UTF-8):   Utiltaires de modules
+Summary(pl.UTF-8):   NarzÄ™dzia do moduÅ‚Ã³w jÄ…dra systemu bez kerneld
+Summary(pt_BR.UTF-8):   UtilitÃ¡rios para mÃ³dulos e kerneld
+Summary(ru.UTF-8):   Ğ£Ñ‚Ğ¸Ğ»Ğ¸Ñ‚Ñ‹ Ğ´Ğ»Ñ Ñ€Ğ°Ğ±Ğ¾Ñ‚Ñ‹ Ñ Ğ¼Ğ¾Ğ´ÑƒĞ»ÑĞ¼Ğ¸ ÑĞ´Ñ€Ğ°
+Summary(tr.UTF-8):   ModÃ¼l programlarÄ±
+Summary(uk.UTF-8):   Ğ£Ñ‚Ğ¸Ğ»Ñ–Ñ‚Ğ¸ Ğ´Ğ»Ñ Ñ€Ğ¾Ğ±Ğ¾Ñ‚Ğ¸ Ğ· Ğ¼Ğ¾Ğ´ÑƒĞ»ÑĞ¼Ğ¸ ÑĞ´Ñ€Ğ°
 Name:		module-init-tools
 Version:	3.2.2
 Release:	3
@@ -39,9 +39,9 @@ removing kernel modules for Linux (versions 2.5.47 and above). It
 serves the same function that the "modutils" package serves for Linux
 2.4.
 
-%description -l pl
-Ten pakiet zawiera zestaw programów do wczytywania, wstawiania i
-usuwania modu³ów j±dra Linuksa (w wersji 2.5.47 i wy¿szych). S³u¿y do
+%description -l pl.UTF-8
+Ten pakiet zawiera zestaw programÃ³w do wczytywania, wstawiania i
+usuwania moduÅ‚Ã³w jÄ…dra Linuksa (w wersji 2.5.47 i wyÅ¼szych). SÅ‚uÅ¼y do
 tego samego, co pakiet modutils dla Linuksa 2.4.
 
 %prep
