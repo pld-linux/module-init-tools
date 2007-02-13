@@ -1,12 +1,12 @@
 Summary:	Module utilities without kerneld
-Summary(de.UTF-8):   Module-Utilities
-Summary(es.UTF-8):   Utilitarios para módulos y kerneld
-Summary(fr.UTF-8):   Utiltaires de modules
-Summary(pl.UTF-8):   Narzędzia do modułów jądra systemu bez kerneld
-Summary(pt_BR.UTF-8):   Utilitários para módulos e kerneld
-Summary(ru.UTF-8):   Утилиты для работы с модулями ядра
-Summary(tr.UTF-8):   Modül programları
-Summary(uk.UTF-8):   Утиліти для роботи з модулями ядра
+Summary(de.UTF-8):	Module-Utilities
+Summary(es.UTF-8):	Utilitarios para módulos y kerneld
+Summary(fr.UTF-8):	Utiltaires de modules
+Summary(pl.UTF-8):	Narzędzia do modułów jądra systemu bez kerneld
+Summary(pt_BR.UTF-8):	Utilitários para módulos e kerneld
+Summary(ru.UTF-8):	Утилиты для работы с модулями ядра
+Summary(tr.UTF-8):	Modül programları
+Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.2.2
 Release:	3
