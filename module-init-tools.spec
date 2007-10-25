@@ -63,31 +63,31 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir}/{cron.d,modprobe.d},%{_mandir}/man{5,8}}
+install -d $RPM_BUILD_ROOT{/etc/{cron.d,modprobe.d},%{_mandir}/man{5,8}}
 
 %{__make} install install-am \
 	DESTDIR=$RPM_BUILD_ROOT \
 	mandir=%{_mandir} \
 	INSTALL=install
 
-:> $RPM_BUILD_ROOT%{_sysconfdir}/modprobe.conf
+:> $RPM_BUILD_ROOT/etc/modprobe.conf
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/modprobe.d/blacklist
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/modprobe.d/blacklist
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ ! -s %{_sysconfdir}/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.conf ] && [ -d /lib/modules/`uname -r` ]; then
-	echo "Generating %{_sysconfdir}/modprobe.conf from obsolete /etc/modules.conf"
-	%{_sbindir}/generate-modprobe.conf %{_sysconfdir}/modprobe.conf
+if [ ! -s /etc/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.conf ] && [ -d /lib/modules/`uname -r` ]; then
+	echo "Generating /etc/modprobe.conf from obsolete /etc/modules.conf"
+	%{_sbindir}/generate-modprobe.conf /etc/modprobe.conf
 fi
 
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog NEWS README
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/modprobe.conf
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/modprobe.d/blacklist
-%dir %{_sysconfdir}/modprobe.d
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.conf
+%dir /etc/modprobe.d
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/blacklist
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man*/*
