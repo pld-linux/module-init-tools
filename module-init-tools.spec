@@ -9,11 +9,12 @@ Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.2.2
-Release:	3
+Release:	3.1
 License:	GPL
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
 # Source0-md5:	a1ad0a09d3231673f70d631f3f5040e9
+Source1:	%{name}-blacklist
 # TODO:
 # - update manual to this patch too
 Patch0:		%{name}-modutils.patch
@@ -62,7 +63,7 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/{cron.d,modprobe.d},%{_mandir}/man{5,8}}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/{cron.d,modprobe.d},%{_mandir}/man{5,8}}
 
 %{__make} install install-am \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -70,6 +71,8 @@ install -d $RPM_BUILD_ROOT{/etc/{cron.d,modprobe.d},%{_mandir}/man{5,8}}
 	INSTALL=install
 
 :> $RPM_BUILD_ROOT%{_sysconfdir}/modprobe.conf
+
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/modprobe.d/blacklist
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -84,6 +87,7 @@ fi
 %defattr(644,root,root,755)
 %doc ChangeLog NEWS README
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/modprobe.conf
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/modprobe.d/blacklist
 %dir %{_sysconfdir}/modprobe.d
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man*/*
