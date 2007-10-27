@@ -2,4 +2,3 @@
 
 # evbug module shouldn't be loaded by default:
 blacklist evbug
-#alias evbug off
