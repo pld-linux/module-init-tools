@@ -9,7 +9,7 @@ Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.2.2
-Release:	4
+Release:	5
 License:	GPL
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
@@ -72,7 +72,7 @@ install -d $RPM_BUILD_ROOT{/etc/{cron.d,modprobe.d},%{_mandir}/man{5,8}}
 
 :> $RPM_BUILD_ROOT/etc/modprobe.conf
 
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/modprobe.d/blacklist
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/modprobe.d/blacklist.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -88,6 +88,6 @@ fi
 %doc ChangeLog NEWS README
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.conf
 %dir /etc/modprobe.d
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/blacklist
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/*.conf
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man*/*
