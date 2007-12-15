@@ -10,7 +10,7 @@ Summary(uk.UTF-8):	Утиліти для роботи з модулями ядр
 Name:		module-init-tools
 Version:	3.2.2
 Release:	5
-License:	GPL
+License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
 # Source0-md5:	a1ad0a09d3231673f70d631f3f5040e9
@@ -22,6 +22,7 @@ Patch1:		%{name}-shared-zlib.patch
 Patch2:		%{name}-insmod-zlib.patch
 Patch3:		%{name}-sparc.patch
 Patch4:		%{name}-modprobe_d.patch
+URL:		http://www.kerneltools.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 #BuildRequires:	docbook-dtd41-sgml
