@@ -1,5 +1,5 @@
---- module-init-tools-3.0-pre9/configure.ac.orig	2004-01-30 05:15:25.000000000 +0100
-+++ module-init-tools-3.0-pre9/configure.ac	2004-01-30 23:08:59.729518344 +0100
+--- module-init-tools-3.0-pre9/configure.in.orig	2004-01-30 05:15:25.000000000 +0100
++++ module-init-tools-3.0-pre9/configure.in	2004-01-30 23:08:59.729518344 +0100
 @@ -6,19 +6,20 @@
  
  # If zlib is required, libz must be linked static, modprobe is in
