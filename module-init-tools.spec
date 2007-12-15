@@ -1,3 +1,6 @@
+# TODO
+# - docs build broken
+%define		pre		-pre11
 Summary:	Module utilities without kerneld
 Summary(de.UTF-8):	Module-Utilities
 Summary(es.UTF-8):	Utilitarios para módulos y kerneld
@@ -8,12 +11,14 @@ Summary(ru.UTF-8):	Утилиты для работы с модулями ядр
 Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	3.2.2
-Release:	5
+Version:	3.3
+Release:	0.1
 License:	GPL
 Group:		Applications/System
-Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	a1ad0a09d3231673f70d631f3f5040e9
+#Source0:	http://www.kernel.org/pub/linux/utils/kernel/module-init-tools/module-init-tools-%{version}%{pre}.tar.bz2
+Source0:	http://www.kerneltools.org/pub/downloads/module-init-tools/%{name}-%{version}%{pre}.tar.bz2
+# Source0-md5:	1c00b41c66647731ed8eb0cd102f451f
+URL:		http://www.kerneltools.org/
 Source1:	%{name}-blacklist
 # TODO:
 # - update manual to this patch too
@@ -22,6 +27,7 @@ Patch1:		%{name}-shared-zlib.patch
 Patch2:		%{name}-insmod-zlib.patch
 Patch3:		%{name}-sparc.patch
 Patch4:		%{name}-modprobe_d.patch
+Patch5:		%{name}-docs.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 #BuildRequires:	docbook-dtd41-sgml
@@ -46,12 +52,13 @@ usuwania modułów jądra Linuksa (w wersji 2.5.47 i wyższych). Służy do
 tego samego, co pakiet modutils dla Linuksa 2.4.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}%{pre}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__aclocal}
@@ -59,7 +66,8 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 %{__automake}
 %configure \
 	--enable-zlib
-%{__make}
+%{__make} \
+	DOCBOOKTOMAN=true
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -78,7 +86,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/modprobe.d/blacklist.conf
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ ! -s /etc/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.conf ] && [ -d /lib/modules/`uname -r` ]; then
+if [ ! -s /etc/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.conf ] && [ -d /lib/modules/$(uname -r) ]; then
 	echo "Generating /etc/modprobe.conf from obsolete /etc/modules.conf"
 	%{_sbindir}/generate-modprobe.conf /etc/modprobe.conf
 fi
