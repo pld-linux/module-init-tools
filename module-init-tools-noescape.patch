@@ -1,0 +1,18 @@
+diff -urNp module-init-tools-3.3-pre11_orig/depmod.c module-init-tools-3.3-pre11/depmod.c
+--- module-init-tools-3.3-pre11_orig/depmod.c	2007-03-22 12:36:02.000000000 -0400
++++ module-init-tools-3.3-pre11/depmod.c	2007-03-22 15:07:15.000000000 -0400
+@@ -701,13 +701,8 @@ static void filename2modname(char *modna
+ 	else
+ 		afterslash++;
+ 
+-	/* Convert to underscores, stop at first . */
+-	for (i = 0; afterslash[i] && afterslash[i] != '.'; i++) {
+-		if (afterslash[i] == '-')
+-			modname[i] = '_';
+-		else
++	for (i = 0; afterslash[i] && afterslash[i] != '.'; i++)
+ 			modname[i] = afterslash[i];
+-	}
+ 	modname[i] = '\0';
+ }
+ 
