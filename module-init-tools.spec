@@ -12,7 +12,7 @@ Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.3
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Applications/System
 #Source0:	http://www.kernel.org/pub/linux/utils/kernel/module-init-tools/module-init-tools-%{version}%{pre}.tar.bz2
@@ -27,11 +27,12 @@ Patch1:		%{name}-shared-zlib.patch
 Patch2:		%{name}-insmod-zlib.patch
 Patch3:		%{name}-sparc.patch
 Patch4:		%{name}-modprobe_d.patch
-Patch5:		%{name}-docs.patch
+Patch5:		%{name}-noescape.patch
+Patch6:		%{name}-dump_modversions.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
-#BuildRequires:	docbook-dtd41-sgml
-#BuildRequires:	docbook-utils
+BuildRequires:	docbook-dtd41-sgml
+BuildRequires:	docbook-utils
 BuildRequires:	glibc-static
 BuildRequires:	zlib-static
 Obsoletes:	modutils
@@ -59,6 +60,7 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 %{__aclocal}
@@ -66,8 +68,7 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 %{__automake}
 %configure \
 	--enable-zlib
-%{__make} \
-	DOCBOOKTOMAN=true
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
