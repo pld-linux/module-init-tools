@@ -1,5 +1,5 @@
---- module-init-tools-3.2-pre9/insmod.c.orig	2005-03-14 16:19:11.000000000 +0100
-+++ module-init-tools-3.2-pre9/insmod.c	2005-10-18 00:48:15.000000000 +0200
+--- module-init-tools-3.3-pre11/insmod.c~	2007-12-15 18:09:53.000000000 +0200
++++ module-init-tools-3.3-pre11/insmod.c	2007-12-15 18:14:02.316183717 +0200
 @@ -28,6 +28,7 @@
  #include <errno.h>
  #include <asm/unistd.h>
@@ -8,14 +8,14 @@
  #include "backwards_compat.c"
  
  #define streq(a,b) (strcmp((a),(b)) == 0)
-@@ -57,36 +58,6 @@
+@@ -58,48 +58,6 @@
  	}
  }
  
 -static void *grab_file(const char *filename, unsigned long *size)
 -{
 -	unsigned int max = 16384;
--	int ret, fd;
+-	int ret, fd, err_save;
 -	void *buffer = malloc(max);
 -	if (!buffer)
 -		return NULL;
@@ -31,15 +31,27 @@
 -	*size = 0;
 -	while ((ret = read(fd, buffer + *size, max - *size)) > 0) {
 -		*size += ret;
--		if (*size == max)
--			buffer = realloc(buffer, max *= 2);
+-		if (*size == max) {
+-			void *p;
+-
+-			p = realloc(buffer, max *= 2);
+-			if (!p)
+-				goto out_error;
+-			buffer = p;
+-		}
 -	}
--	if (ret < 0) {
--		free(buffer);
--		buffer = NULL;
--	}
+-	if (ret < 0)
+-		goto out_error;
+-
 -	close(fd);
 -	return buffer;
+-
+-out_error:
+-	err_save = errno;
+-	free(buffer);
+-	close(fd);
+-	errno = err_save;
+-	return NULL;
 -}
 -
  int main(int argc, char *argv[])
