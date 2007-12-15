@@ -1,0 +1,41 @@
+--- module-init-tools-3.0-pre9/configure.ac.orig	2004-01-30 05:15:25.000000000 +0100
++++ module-init-tools-3.0-pre9/configure.ac	2004-01-30 23:08:59.729518344 +0100
+@@ -6,19 +6,20 @@
+ 
+ # If zlib is required, libz must be linked static, modprobe is in
+ # /sbin, libz is in /usr/lib and may not be available when it is run.
++# ...but in PLD libz is in /lib, so we can safely use shared zlib.
+ AC_ARG_ENABLE(zlib,
+ [  --enable-zlib               Handle gzipped modules],
+ [if test "$enableval" = "yes"; then
+   AC_DEFINE(CONFIG_USE_ZLIB)
+-  zlib_flags="-Wl,-Bstatic -lz -Wl,-Bdynamic"
++  zlib_flags="-lz"
+ fi])
+ 
+ AC_PROG_CC
+  
+ # Delay adding the zlib_flags until after AC_PROG_CC, so we can distinguish
+ # between a broken cc and a working cc but missing libz.a.
+-LDADD="$LDADD $zlib_flags"
+-AC_SUBST(LDADD)
++ZLIB="$zlib_flags"
++AC_SUBST(ZLIB)
+ 
+ case $target in
+ *-*-linux*) ;;
+--- module-init-tools-0.9.14/Makefile.am.orig	Tue Aug 26 04:13:18 2003
++++ module-init-tools-0.9.14/Makefile.am	Mon Oct 13 10:59:14 2003
+@@ -8,6 +8,12 @@
+ insmod_static_SOURCES = insmod.c
+ insmod_static_LDFLAGS = -static
+ 
++modprobe_LDADD = $(ZLIB)
++depmod_LDADD = $(ZLIB)
++modinfo_LDADD = $(ZLIB)
++insmod_LDADD = $(ZLIB)
++insmod_static_LDADD = $(ZLIB)
++
+ EXTRA_insmod_SOURCES = backwards_compat.c
+ EXTRA_lsmod_SOURCES = backwards_compat.c
+ EXTRA_modprobe_SOURCES = backwards_compat.c
