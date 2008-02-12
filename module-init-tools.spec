@@ -9,7 +9,7 @@ Summary(tr):	ModЭl programlarЩ
 Summary(uk):	Утил╕ти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.2.2
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
@@ -21,6 +21,7 @@ Patch1:		%{name}-shared-zlib.patch
 Patch2:		%{name}-insmod-zlib.patch
 Patch3:		%{name}-sparc.patch
 Patch4:		%{name}-modprobe_d.patch
+Patch5:		%{name}-modinfo-kernelversion.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	docbook-dtd41-sgml
@@ -51,6 +52,7 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__aclocal}
