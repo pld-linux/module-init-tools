@@ -9,11 +9,12 @@ Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.2.2
-Release:	3
-License:	GPL
+Release:	6
+License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
 # Source0-md5:	a1ad0a09d3231673f70d631f3f5040e9
+Source1:	%{name}-blacklist
 # TODO:
 # - update manual to this patch too
 Patch0:		%{name}-modutils.patch
@@ -22,6 +23,7 @@ Patch2:		%{name}-insmod-zlib.patch
 Patch3:		%{name}-sparc.patch
 Patch4:		%{name}-modprobe_d.patch
 Patch5:		%{name}-modinfo-kernelversion.patch
+URL:		http://www.kerneltools.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	docbook-dtd41-sgml
@@ -71,21 +73,24 @@ install -d $RPM_BUILD_ROOT{/etc/{cron.d,modprobe.d},%{_mandir}/man{5,8}}
 	mandir=%{_mandir} \
 	INSTALL=install
 
-:> $RPM_BUILD_ROOT%{_sysconfdir}/modprobe.conf
+:> $RPM_BUILD_ROOT/etc/modprobe.conf
+
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/modprobe.d/blacklist.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ ! -s %{_sysconfdir}/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.conf ] && [ -d /lib/modules/`uname -r` ]; then
-	echo "Generating %{_sysconfdir}/modprobe.conf from obsolete /etc/modules.conf"
-	%{_sbindir}/generate-modprobe.conf %{_sysconfdir}/modprobe.conf
+if [ ! -s /etc/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.conf ] && [ -d /lib/modules/`uname -r` ]; then
+	echo "Generating /etc/modprobe.conf from obsolete /etc/modules.conf"
+	%{_sbindir}/generate-modprobe.conf /etc/modprobe.conf
 fi
 
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog NEWS README
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/modprobe.conf
-%dir %{_sysconfdir}/modprobe.d
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.conf
+%dir /etc/modprobe.d
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/*.conf
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man*/*
