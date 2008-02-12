@@ -9,8 +9,8 @@ Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.2.2
-Release:	3.1
-License:	GPL
+Release:	6
+License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
 # Source0-md5:	a1ad0a09d3231673f70d631f3f5040e9
@@ -22,13 +22,15 @@ Patch1:		%{name}-shared-zlib.patch
 Patch2:		%{name}-insmod-zlib.patch
 Patch3:		%{name}-sparc.patch
 Patch4:		%{name}-modprobe_d.patch
+Patch5:		%{name}-modinfo-kernelversion.patch
+URL:		http://www.kerneltools.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
-#BuildRequires:	docbook-dtd41-sgml
-#BuildRequires:	docbook-utils
+BuildRequires:	docbook-dtd41-sgml
+BuildRequires:	docbook-utils
 BuildRequires:	glibc-static
 BuildRequires:	zlib-static
-Obsoletes:	modutils
+Conflicts:	modutils < 2.4.25-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_bindir		/sbin
@@ -52,6 +54,7 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__aclocal}
@@ -72,7 +75,7 @@ install -d $RPM_BUILD_ROOT{/etc/{cron.d,modprobe.d},%{_mandir}/man{5,8}}
 
 :> $RPM_BUILD_ROOT/etc/modprobe.conf
 
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/modprobe.d/blacklist
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/modprobe.d/blacklist.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -88,6 +91,6 @@ fi
 %doc ChangeLog NEWS README
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.conf
 %dir /etc/modprobe.d
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/blacklist
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/*.conf
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man*/*
