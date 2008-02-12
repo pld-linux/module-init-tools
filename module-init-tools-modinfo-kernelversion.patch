@@ -60,7 +60,7 @@
  		default:
  			usage(argv[0]); exit(0);
  		}
-@@ -369,10 +377,10 @@
+@@ -377,7 +377,7 @@
  		unsigned long modulesize;
  		char *filename;
  
@@ -69,6 +69,3 @@
  		if (!mod) {
  			ret = 1;
  			continue;
- 		}
- 
- 		info = get_section(mod, modulesize, &infosize, ".modinfo");
