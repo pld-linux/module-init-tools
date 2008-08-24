@@ -8,12 +8,12 @@ Summary(ru.UTF-8):	Утилиты для работы с модулями ядр
 Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	3.2.2
-Release:	7
+Version:	3.4
+Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	a1ad0a09d3231673f70d631f3f5040e9
+# Source0-md5:	db6ac059e80e8dd4389dbe81ee61f3c6
 Source1:	%{name}-blacklist
 # TODO:
 # - update manual to this patch too
@@ -22,12 +22,10 @@ Patch1:		%{name}-shared-zlib.patch
 Patch2:		%{name}-insmod-zlib.patch
 Patch3:		%{name}-sparc.patch
 Patch4:		%{name}-modprobe_d.patch
-Patch5:		%{name}-modinfo-kernelversion.patch
 URL:		http://www.kerneltools.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
-#BuildRequires:	docbook-dtd41-sgml
-#BuildRequires:	docbook-utils
+BuildRequires:	docbook-to-man
 BuildRequires:	glibc-static
 BuildRequires:	zlib-static
 Obsoletes:	modutils
@@ -54,7 +52,6 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 %build
 %{__aclocal}
@@ -93,4 +90,7 @@ fi
 %dir /etc/modprobe.d
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/*.conf
 %attr(755,root,root) %{_sbindir}/*
-%{_mandir}/man*/*
+%{_mandir}/man5/depmod.conf.5*
+%{_mandir}/man5/modprobe.conf.5*
+%{_mandir}/man5/modules.dep.5*
+%{_mandir}/man8/*.8*
