@@ -9,12 +9,13 @@ Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.4
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
 # Source0-md5:	db6ac059e80e8dd4389dbe81ee61f3c6
 Source1:	%{name}-blacklist
+Source2:	%{name}-usb
 # TODO:
 # - update manual to this patch too
 Patch0:		%{name}-modutils.patch
@@ -73,6 +74,7 @@ install -d $RPM_BUILD_ROOT{/etc/{cron.d,modprobe.d},%{_mandir}/man{5,8}}
 :> $RPM_BUILD_ROOT/etc/modprobe.conf
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/modprobe.d/blacklist.conf
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/modprobe.d/usb.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
