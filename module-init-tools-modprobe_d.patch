@@ -26,22 +26,17 @@ diff -Nur module-init-tools-3.2.2/modprobe.c module-init-tools-3.2.2.modprobe_d/
  
  static void read_toplevel_config(const char *filename,
  				 const char *name,
-@@ -1235,10 +1238,12 @@
+@@ -1367,6 +1367,10 @@
  	}
  
  	/* Try defaults. */
 +	if ( modprobe_d_ver != NULL )
 +		read_config(modprobe_d_ver, name, dump_only, removing,
 +				options, commands, aliases, blacklist);
++
  	for (i = 0; i < ARRAY_SIZE(default_configs); i++) {
--		if (read_config(default_configs[i], name, dump_only, removing,
--				options, commands, aliases, blacklist))
--			return;
-+		read_config(default_configs[i], name, dump_only, removing,
-+				options, commands, aliases, blacklist);
- 	}
- }
- 
+ 		read_config(default_configs[i], name, dump_only, removing,
+ 				options, commands, aliases, blacklist);
 @@ -1547,6 +1552,10 @@
  				    + sizeof("/modules.symbols")));
  	sprintf(symfilename, "%s/modules.symbols", dirname);
