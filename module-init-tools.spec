@@ -8,12 +8,12 @@ Summary(ru.UTF-8):	Утилиты для работы с модулями ядр
 Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	3.4
-Release:	2
+Version:	3.5
+Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	db6ac059e80e8dd4389dbe81ee61f3c6
+# Source0-md5:	2b47686247fc9a99bfdb9dd1d1d80e6f
 Source1:	%{name}-blacklist
 Source2:	%{name}-usb
 # TODO:
