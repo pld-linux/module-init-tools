@@ -1,7 +1,7 @@
 #
 # Conditional build
-%bcond_without	initrd	# don't build initrd package
-%bcond_without	uClibc	# don't link with uclibc, use glibc
+%bcond_without	initrd		# don't build initrd package
+%bcond_without	dietlibc	# don't link with dietlibc, use glibc
 #
 Summary:	Module utilities without kerneld
 Summary(de.UTF-8):	Module-Utilities
@@ -14,7 +14,7 @@ Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.5
-Release:	3
+Release:	4
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
@@ -35,7 +35,7 @@ BuildRequires:	docbook-to-man
 BuildRequires:	glibc-static
 BuildRequires:	zlib-static
 %if %{with initrd}
-%{?with_uClibc:BuildRequires:	uClibc-static >= 3:0.9.29-23}
+%{?with_dietlibc:BuildRequires:	dietlibc-static}
 %endif
 Obsoletes:	modutils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -81,12 +81,11 @@ Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initr
 
 %if %{with initrd}
 %configure \
-	%{?with_uClibc:LDFLAGS="%{rpmldflags} -static"} \
-	%{?with_uClibc:CC="%{_target_cpu}-uclibc-gcc"} \
+	%{?with_dietlibc:CC="diet %{__cc} %{rpmcflags} %{rpmldflags} -static"} \
+	%{!?with_dietlibc:CC="%{__cc} -static"} \
 	--enable-zlib
 
-%{__make} \
-	ZLIB=/usr/lib/libz.a
+%{__make}
 
 %{__make} install-exec-am \
 	DESTDIR=initrd-mod
