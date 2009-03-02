@@ -9,7 +9,7 @@ Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.5
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
@@ -88,9 +88,9 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog NEWS README
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.conf
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.conf
 %dir /etc/modprobe.d
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/*.conf
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/*.conf
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man5/depmod.conf.5*
 %{_mandir}/man5/modprobe.conf.5*
