@@ -1,3 +1,8 @@
+#
+# Conditional build
+%bcond_without	initrd	# don't build initrd package
+%bcond_without	uClibc	# don't link with uclibc, use glibc
+#
 Summary:	Module utilities without kerneld
 Summary(de.UTF-8):	Module-Utilities
 Summary(es.UTF-8):	Utilitarios para módulos y kerneld
@@ -9,7 +14,7 @@ Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.5
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
@@ -29,6 +34,9 @@ BuildRequires:	automake
 BuildRequires:	docbook-to-man
 BuildRequires:	glibc-static
 BuildRequires:	zlib-static
+%if %{with initrd}
+%{?with_uClibc:BuildRequires:	uClibc-static >= 3:0.9.29-23}
+%endif
 Obsoletes:	modutils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -46,6 +54,18 @@ Ten pakiet zawiera zestaw programów do wczytywania, wstawiania i
 usuwania modułów jądra Linuksa (w wersji 2.5.47 i wyższych). Służy do
 tego samego, co pakiet modutils dla Linuksa 2.4.
 
+%package initrd
+Summary:	Module utilities without kerneld - static binary for initrd
+Summary(pl.UTF-8):	Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initrd
+Group:		Applications/System
+Requires:	%{name} = %{version}-%{release}
+
+%description initrd
+Module utilities without kerneld - static binary for initrd.
+
+%description initrd -l pl.UTF-8
+Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initrd.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -58,6 +78,22 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 %{__aclocal}
 %{__autoconf}
 %{__automake}
+
+%if %{with initrd}
+%configure \
+	%{?with_uClibc:LDFLAGS="%{rpmldflags} -static"} \
+	%{?with_uClibc:CC="%{_target_cpu}-uclibc-gcc"} \
+	--enable-zlib
+
+%{__make} \
+	ZLIB=/usr/lib/libz.a
+
+%{__make} install-exec-am \
+	DESTDIR=initrd-mod
+
+%{__make} clean
+%endif
+
 %configure \
 	--enable-zlib
 %{__make}
@@ -76,6 +112,14 @@ install -d $RPM_BUILD_ROOT{/etc/{cron.d,modprobe.d},%{_mandir}/man{5,8}}
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/modprobe.d/blacklist.conf
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/modprobe.d/usb.conf
 
+%if %{with initrd}
+install initrd-mod/sbin/depmod $RPM_BUILD_ROOT%{_sbindir}/initrd-depmod
+install initrd-mod/sbin/insmod $RPM_BUILD_ROOT%{_sbindir}/initrd-insmod
+install initrd-mod/sbin/lsmod $RPM_BUILD_ROOT%{_sbindir}/initrd-lsmod
+install initrd-mod/sbin/modprobe $RPM_BUILD_ROOT%{_sbindir}/initrd-modprobe
+install initrd-mod/sbin/rmmod $RPM_BUILD_ROOT%{_sbindir}/initrd-rmmod
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -92,7 +136,16 @@ fi
 %dir /etc/modprobe.d
 %attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/*.conf
 %attr(755,root,root) %{_sbindir}/*
+%if %{with initrd}
+%exclude %{_sbindir}/initrd-*
+%endif
 %{_mandir}/man5/depmod.conf.5*
 %{_mandir}/man5/modprobe.conf.5*
 %{_mandir}/man5/modules.dep.5*
 %{_mandir}/man8/*.8*
+
+%if %{with initrd}
+%files initrd
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_sbindir}/initrd-*
+%endif
