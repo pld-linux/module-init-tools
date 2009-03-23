@@ -59,6 +59,7 @@ Summary:	Module utilities without kerneld - static binary for initrd
 Summary(pl.UTF-8):	Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initrd
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
+Conflicts:	geninitrd <= 10000.3
 
 %description initrd
 Module utilities without kerneld - static binary for initrd.
