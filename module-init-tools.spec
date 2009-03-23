@@ -82,7 +82,7 @@ Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initr
 
 %if %{with initrd}
 %configure \
-	%{?with_dietlibc:CC="diet %{__cc} %{rpmcflags} %{rpmldflags} -static"} \
+	%{?with_dietlibc:CC="diet %{__cc} %{rpmcflags} %{rpmldflags} -Os -static"} \
 	%{!?with_dietlibc:CC="%{__cc} -static"} \
 	--enable-zlib
 
