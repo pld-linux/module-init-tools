@@ -112,11 +112,12 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/modprobe.d/blacklist.conf
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/modprobe.d/usb.conf
 
 %if %{with initrd}
-install initrd-mod/sbin/depmod $RPM_BUILD_ROOT%{_sbindir}/initrd-depmod
-install initrd-mod/sbin/insmod $RPM_BUILD_ROOT%{_sbindir}/initrd-insmod
-install initrd-mod/sbin/lsmod $RPM_BUILD_ROOT%{_sbindir}/initrd-lsmod
-install initrd-mod/sbin/modprobe $RPM_BUILD_ROOT%{_sbindir}/initrd-modprobe
-install initrd-mod/sbin/rmmod $RPM_BUILD_ROOT%{_sbindir}/initrd-rmmod
+install -d $RPM_BUILD_ROOT%{_libdir}/initrd
+install initrd-mod/sbin/depmod $RPM_BUILD_ROOT%{_libdir}/initrd/depmod
+install initrd-mod/sbin/insmod $RPM_BUILD_ROOT%{_libdir}/initrd/insmod
+install initrd-mod/sbin/lsmod $RPM_BUILD_ROOT%{_libdir}/initrd/lsmod
+install initrd-mod/sbin/modprobe $RPM_BUILD_ROOT%{_libdir}/initrd/modprobe
+install initrd-mod/sbin/rmmod $RPM_BUILD_ROOT%{_libdir}/initrd/rmmod
 %endif
 
 %clean
@@ -135,9 +136,6 @@ fi
 %dir /etc/modprobe.d
 %attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/*.conf
 %attr(755,root,root) %{_sbindir}/*
-%if %{with initrd}
-%exclude %{_sbindir}/initrd-*
-%endif
 %{_mandir}/man5/depmod.conf.5*
 %{_mandir}/man5/modprobe.conf.5*
 %{_mandir}/man5/modules.dep.5*
@@ -146,5 +144,9 @@ fi
 %if %{with initrd}
 %files initrd
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_sbindir}/initrd-*
+%attr(755,root,root) %{_libdir}/initrd/depmod
+%attr(755,root,root) %{_libdir}/initrd/insmod
+%attr(755,root,root) %{_libdir}/initrd/lsmod
+%attr(755,root,root) %{_libdir}/initrd/modprobe
+%attr(755,root,root) %{_libdir}/initrd/rmmod
 %endif
