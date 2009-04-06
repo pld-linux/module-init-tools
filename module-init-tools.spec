@@ -14,7 +14,7 @@ Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.5
-Release:	4
+Release:	5
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
@@ -59,7 +59,7 @@ Summary:	Module utilities without kerneld - static binary for initrd
 Summary(pl.UTF-8):	Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initrd
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
-Conflicts:	geninitrd <= 10000.3
+Conflicts:	geninitrd < 10000.10
 
 %description initrd
 Module utilities without kerneld - static binary for initrd.
