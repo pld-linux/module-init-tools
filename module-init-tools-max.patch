@@ -1,0 +1,14 @@
+--- module-init-tools-3.7/index.h~	2009-03-03 22:40:10.000000000 +0100
++++ module-init-tools-3.7/index.h	2009-04-12 09:13:52.430676036 +0200
+@@ -98,7 +98,11 @@
+    child pointers at the start and end of arrays.
+ */
+ 
++#ifdef UINT32_MAX
+ #define INDEX_PRIORITY_MIN UINT32_MAX
++#else
++#define INDEX_PRIORITY_MIN INT_MAX
++#endif
+ 
+ struct index_value {
+ 	struct index_value *next;
