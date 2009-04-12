@@ -73,7 +73,7 @@ diff -urN module-init-tools-3.0.org/Makefile.am module-init-tools-3.0/Makefile.a
  modindex_SOURCES = modindex.c logging.c index.c logging.h index.h
  
 -insmod_static_SOURCES = insmod.c
-+insmod_static_SOURCES = insmod.c zlibsupport.c zlibsupport.h
++insmod_static_SOURCES = insmod.c logging.c zlibsupport.c zlibsupport.h
  insmod_static_LDFLAGS = -static
 -# We don't want the $(zlib_flags) here: that makes a dynamic executable
 -insmod_static_LDADD = 
