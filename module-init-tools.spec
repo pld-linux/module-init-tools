@@ -13,17 +13,16 @@ Summary(ru.UTF-8):	Утилиты для работы с модулями ядр
 Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	3.5
-Release:	5
+Version:	3.7
+Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	2b47686247fc9a99bfdb9dd1d1d80e6f
+# Source0-md5:	7a30804543b28b030b6638e71ea21429
 Source1:	%{name}-blacklist
 Source2:	%{name}-usb
 # TODO:
 # - update manual to this patch too
-Patch0:		%{name}-modutils.patch
 Patch1:		%{name}-shared-zlib.patch
 Patch2:		%{name}-insmod-zlib.patch
 Patch3:		%{name}-sparc.patch
@@ -69,14 +68,13 @@ Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initr
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 
 %build
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
 
