@@ -1,56 +1,35 @@
 diff -Nur module-init-tools-3.2.2/modprobe.c module-init-tools-3.2.2.modprobe_d/modprobe.c
 --- module-init-tools-3.2.2/modprobe.c	2005-12-02 00:42:09.000000000 +0100
 +++ module-init-tools-3.2.2.modprobe_d/modprobe.c	2006-01-21 03:11:18.000000000 +0100
-@@ -1185,7 +1185,8 @@
- 	if (dir) {
- 		struct dirent *i;
- 		while ((i = readdir(dir)) != NULL) {
--			if (!streq(i->d_name,".") && !streq(i->d_name,"..")) {
-+			if (strlen(i->d_name) > 5 &&
-+					strcmp(i->d_name + strlen(i->d_name) - 5, ".conf") == 0) {
- 				char sub[strlen(filename) + 1
- 					 + strlen(i->d_name) + 1];
- 
-@@ -1209,11 +1210,13 @@
- 	return ret;
- }
- 
-+#define MODPROBE_D_CONF	"/etc/modprobe.d"
- static const char *default_configs[] = 
- {
-+	MODPROBE_D_CONF,
- 	"/etc/modprobe.conf",
--	"/etc/modprobe.d",
+@@ -59,6 +59,8 @@
+ 	char filename[0];
  };
+ 
 +char *modprobe_d_ver = NULL;
++
+ #ifndef MODULE_DIR
+ #define MODULE_DIR "/lib/modules"
+ #endif
+@@ -1245,9 +1247,7 @@
+ 			if (len < 6 ||
+ 			    (strcmp(&i->d_name[len-5], ".conf") != 0 &&
+ 			     strcmp(&i->d_name[len-6], ".alias") != 0))
+-				warn("All config files need .conf: %s/%s, "
+-				     "it will be ignored in a future release.\n",
+-				     filename, i->d_name);
++					continue;
+ 			fe = malloc(sizeof(struct file_entry) + len + 1);
+ 			if (fe == NULL)
+ 				continue;
+@@ -1308,6 +1308,11 @@
+ 		warn("Deprecated config file /etc/modprobe.conf, "
+ 		      "all config files belong into /etc/modprobe.d/.\n");
  
- static void read_toplevel_config(const char *filename,
- 				 const char *name,
-@@ -1367,6 +1367,10 @@
- 	}
- 
- 	/* Try defaults. */
++	/* kernel ver based config */
 +	if ( modprobe_d_ver != NULL )
-+		read_config(modprobe_d_ver, name, dump_only, removing,
-+				options, commands, aliases, blacklist);
++			parse_config_scan(modprobe_d_ver, name, dump_only, removing,
++							options, commands, aliases, blacklist);
 +
- 	for (i = 0; i < ARRAY_SIZE(default_configs); i++) {
- 		read_config(default_configs[i], name, dump_only, removing,
- 				options, commands, aliases, blacklist);
-@@ -1547,6 +1552,10 @@
- 				    + sizeof("/modules.symbols")));
- 	sprintf(symfilename, "%s/modules.symbols", dirname);
- 
-+	modprobe_d_ver = NOFAIL(malloc(strlen(buf.release)
-+					+ sizeof(MODPROBE_D_CONF) + 1));
-+	sprintf(modprobe_d_ver, "%s/%s", MODPROBE_D_CONF, buf.release);
-+
- 	/* Old-style -t xxx wildcard?  Only with -l. */
- 	if (list_only) {
- 		if (optind+1 < argc)
-@@ -1660,3 +1669,5 @@
- 
- 	return 0;
- }
-+
-+// vim: ts=4
+ 	/* default config */
+ 	parse_config_scan("/etc/modprobe.d", name, dump_only, removing,
+ 			  options, commands, aliases, blacklist);
