@@ -21,8 +21,7 @@ Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{ve
 # Source0-md5:	7a30804543b28b030b6638e71ea21429
 Source1:	%{name}-blacklist
 Source2:	%{name}-usb
-# TODO:
-# - update manual to this patch too
+Patch0:		%{name}-max.patch
 Patch1:		%{name}-shared-zlib.patch
 Patch2:		%{name}-insmod-zlib.patch
 Patch3:		%{name}-sparc.patch
@@ -68,6 +67,7 @@ Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initr
 
 %prep
 %setup -q
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -112,11 +112,11 @@ install %{SOURCE2} $RPM_BUILD_ROOT/etc/modprobe.d/usb.conf
 
 %if %{with initrd}
 install -d $RPM_BUILD_ROOT%{_libdir}/initrd
-install initrd-mod/sbin/depmod $RPM_BUILD_ROOT%{_libdir}/initrd/depmod
-install initrd-mod/sbin/insmod $RPM_BUILD_ROOT%{_libdir}/initrd/insmod
-install initrd-mod/sbin/lsmod $RPM_BUILD_ROOT%{_libdir}/initrd/lsmod
-install initrd-mod/sbin/modprobe $RPM_BUILD_ROOT%{_libdir}/initrd/modprobe
-install initrd-mod/sbin/rmmod $RPM_BUILD_ROOT%{_libdir}/initrd/rmmod
+install build/initrd-mod/sbin/depmod $RPM_BUILD_ROOT%{_libdir}/initrd/depmod
+install build/initrd-mod/sbin/insmod $RPM_BUILD_ROOT%{_libdir}/initrd/insmod
+install build/initrd-mod/sbin/lsmod $RPM_BUILD_ROOT%{_libdir}/initrd/lsmod
+install build/initrd-mod/sbin/modprobe $RPM_BUILD_ROOT%{_libdir}/initrd/modprobe
+install build/initrd-mod/sbin/rmmod $RPM_BUILD_ROOT%{_libdir}/initrd/rmmod
 %endif
 
 %clean
