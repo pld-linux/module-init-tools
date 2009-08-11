@@ -127,7 +127,7 @@ if [ ! -s /etc/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.co
 	%{_sbindir}/generate-modprobe.conf /etc/modprobe.d/modprobe.conf
 fi
 
-%triggerun -- %{name} < 3.10
+%triggerpostun -- %{name} < 3.10
 if [ -f /etc/modprobe.conf ]; then
 	mv -f /etc/modprobe.conf /etc/modprobe.conf.rpmsave
 	if [ -f /etc/modprobe.d/modprobe.conf ]; then
