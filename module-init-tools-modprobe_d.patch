@@ -1,7 +1,15 @@
 diff -Nur module-init-tools-3.2.2/modprobe.c module-init-tools-3.2.2.modprobe_d/modprobe.c
 --- module-init-tools-3.2.2/modprobe.c	2005-12-02 00:42:09.000000000 +0100
 +++ module-init-tools-3.2.2.modprobe_d/modprobe.c	2006-01-21 03:11:18.000000000 +0100
-@@ -73,6 +73,8 @@
+@@ -17,6 +17,7 @@
+     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ #define _GNU_SOURCE /* asprintf */
++#define	_BSD_SOURCE /* DT_DIR */
+ 
+ #include <sys/utsname.h>
+ #include <sys/types.h>
+@@ -73,6 +74,8 @@
  
  } modprobe_flags_t;
  
@@ -10,7 +18,22 @@ diff -Nur module-init-tools-3.2.2/modprobe.c module-init-tools-3.2.2.modprobe_d/
  #ifndef MODULE_DIR
  #define MODULE_DIR "/lib/modules"
  #endif
-@@ -876,10 +878,12 @@
+@@ -867,19 +870,27 @@
+ 		/* sort files from directory into list */
+ 		while ((i = readdir(dir)) != NULL) {
+ 			size_t len;
++			struct stat statbuf;
++			char statpath[PATH_MAX];
+ 
+ 			if (i->d_name[0] == '.')
+ 				continue;
+ 			if (!config_filter(i->d_name))
+ 				continue;
+ 
++			snprintf(statpath, sizeof(statpath), "%s/%s", filename, i->d_name);
++			if ((stat(statpath, &statbuf) == 0) && (S_ISDIR(statbuf.st_mode)))
++				continue;
++
  			len = strlen(i->d_name);
  			if (len < 6 ||
  			    (strcmp(&i->d_name[len-5], ".conf") != 0 &&
@@ -25,7 +48,7 @@ diff -Nur module-init-tools-3.2.2/modprobe.c module-init-tools-3.2.2.modprobe_d/
  			fe = malloc(sizeof(struct file_entry) + len + 1);
  			if (fe == NULL)
  				continue;
-@@ -940,6 +944,11 @@
+@@ -940,6 +951,11 @@
  		warn("Deprecated config file /etc/modprobe.conf, "
  		      "all config files belong into /etc/modprobe.d/.\n");
  
@@ -37,7 +60,7 @@ diff -Nur module-init-tools-3.2.2/modprobe.c module-init-tools-3.2.2.modprobe_d/
  	/* default config */
  	parse_config_scan("/etc/modprobe.d", name, dump_only, removing,
  			  options, commands, aliases, blacklist);
-@@ -1509,6 +1518,7 @@
+@@ -1509,6 +1525,7 @@
  		print_usage(argv[0]);
  
  	nofail_asprintf(&dirname, "%s%s/%s", basedir, MODULE_DIR, buf.release);
