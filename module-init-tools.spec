@@ -122,19 +122,16 @@ install build/initrd-mod/sbin/rmmod $RPM_BUILD_ROOT%{_libdir}/initrd/rmmod
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ ! -s /etc/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.conf ] && [ -d /lib/modules/`uname -r` ]; then
+if [ ! -s /etc/modprobe.d/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.conf ] && [ -d /lib/modules/$(uname -r) ]; then
 	echo "Generating /etc/modprobe.d/modprobe.conf from obsolete /etc/modules.conf"
 	%{_sbindir}/generate-modprobe.conf /etc/modprobe.d/modprobe.conf
+	mv -f /etc/modules.conf{,.rpmsave}
 fi
 
 %triggerpostun -- %{name} < 3.10
-if [ -f /etc/modprobe.conf ]; then
-	mv -f /etc/modprobe.conf /etc/modprobe.conf.rpmsave
-	if [ -f /etc/modprobe.d/modprobe.conf ]; then
-		mv -f /etc/modprobe.conf /etc/modprobe.d/modprobe.conf.rpmnew
-	else
-		mv -f /etc/modprobe.conf /etc/modprobe.d/modprobe.conf
-	fi
+if [ -f /etc/modprobe.conf.rpmsave ]; then
+	cp -f /etc/modprobe.d/modprobe.conf{,.rpmnew}
+	mv -f /etc/modprobe.conf.rpmsave /etc/modprobe.d/modprobe.conf
 fi
 
 %files
