@@ -63,20 +63,21 @@ diff -urN module-init-tools-3.0.org/Makefile.am module-init-tools-3.0/Makefile.a
 @@ -1,6 +1,6 @@
  ACLOCAL_AMFLAGS = -I m4
  
--insmod_SOURCES = insmod.c util.c logging.c util.h logging.h testing.h
-+insmod_SOURCES = insmod.c util.c logging.c util.h logging.h testing.h zlibsupport.c zlibsupport.h
- lsmod_SOURCES = lsmod.c util.c logging.c util.h logging.h testing.h
- modprobe_SOURCES = modprobe.c util.c logging.c index.c zlibsupport.c config_filter.c util.h logging.h index.h testing.h zlibsupport.h config_filter.h
- rmmod_SOURCES = rmmod.c util.c logging.c util.h logging.h testing.h
-@@ -6,10 +6,8 @@
- modinfo_SOURCES = modinfo.c zlibsupport.c testing.h zlibsupport.h
- modindex_SOURCES = modindex.c logging.c index.c logging.h index.h
+-insmod_SOURCES = insmod.c testing.h
++insmod_SOURCES = insmod.c testing.h zlibsupport.c zlibsupport.h
+ lsmod_SOURCES = lsmod.c testing.h
+ modprobe_SOURCES = modprobe.c zlibsupport.c zlibsupport.h testing.h
+ rmmod_SOURCES = rmmod.c testing.h
+@@ -9,10 +9,10 @@
+ modinfo_SOURCES = modinfo.c zlibsupport.c zlibsupport.h testing.h
+ modindex_SOURCES = modindex.c zlibsupport.c zlibsupport.h testing.h
  
 -insmod_static_SOURCES = insmod.c
 +insmod_static_SOURCES = insmod.c logging.c zlibsupport.c zlibsupport.h
  insmod_static_LDFLAGS = -static
--# We don't want the $(zlib_flags) here: that makes a dynamic executable
--insmod_static_LDADD = 
+ # We don't want the $(zlib_flags) here: that makes a dynamic executable
+-insmod_static_LDADD = libmodtools.a
++insmod_static_LDADD = $(LDADD) libmodtools.a
  
- modprobe_LDADD = $(ZLIB)
- depmod_LDADD = $(ZLIB)
+ EXTRA_insmod_SOURCES =
+ EXTRA_lsmod_SOURCES =

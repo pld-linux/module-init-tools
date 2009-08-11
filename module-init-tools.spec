@@ -13,16 +13,15 @@ Summary(ru.UTF-8):	Утилиты для работы с модулями ядр
 Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	3.7
+Version:	3.10
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	7a30804543b28b030b6638e71ea21429
+# Source0-md5:	fcde0344ad07c4ae2ae6b40918fd092d
 Source1:	%{name}-blacklist
 Source2:	%{name}-usb
 Patch0:		%{name}-max.patch
-Patch1:		%{name}-shared-zlib.patch
 Patch2:		%{name}-insmod-zlib.patch
 Patch3:		%{name}-sparc.patch
 Patch4:		%{name}-modprobe_d.patch
@@ -68,9 +67,9 @@ Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initr
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 %patch2 -p1
-%patch3 -p1
+# huh?
+# %patch3 -p1
 %patch4 -p1
 
 %build
@@ -93,19 +92,19 @@ Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initr
 %endif
 
 %configure \
-	--enable-zlib
+	--enable-zlib-dynamic
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/{cron.d,modprobe.d},%{_mandir}/man{5,8}}
 
-%{__make} install install-am \
+%{__make} -j1 install install-am \
 	DESTDIR=$RPM_BUILD_ROOT \
 	mandir=%{_mandir} \
 	INSTALL=install
 
-:> $RPM_BUILD_ROOT/etc/modprobe.conf
+:> $RPM_BUILD_ROOT/etc/modprobe.d/modprobe.conf
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/modprobe.d/blacklist.conf
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/modprobe.d/usb.conf
@@ -124,19 +123,22 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 if [ ! -s /etc/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.conf ] && [ -d /lib/modules/`uname -r` ]; then
-	echo "Generating /etc/modprobe.conf from obsolete /etc/modules.conf"
-	%{_sbindir}/generate-modprobe.conf /etc/modprobe.conf
+	echo "Generating /etc/modprobe.d/modprobe.conf from obsolete /etc/modules.conf"
+	%{_sbindir}/generate-modprobe.conf /etc/modprobe.d/modprobe.conf
 fi
+
+%triggerun -- %{name} < 3.10
+[ -f /etc/modprobe.conf ] && mv /etc/modprobe.conf /etc/modprobe.d/modprobe.conf
 
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog NEWS README
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.conf
 %dir /etc/modprobe.d
 %attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/*.conf
 %attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man5/depmod.conf.5*
 %{_mandir}/man5/modprobe.conf.5*
+%{_mandir}/man5/modprobe.d.5*
 %{_mandir}/man5/modules.dep.5*
 %{_mandir}/man8/*.8*
 
