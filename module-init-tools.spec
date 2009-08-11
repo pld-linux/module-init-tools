@@ -128,7 +128,14 @@ if [ ! -s /etc/modprobe.conf -a -x /sbin/modprobe.modutils -a -f /etc/modules.co
 fi
 
 %triggerun -- %{name} < 3.10
-[ -f /etc/modprobe.conf ] && mv /etc/modprobe.conf /etc/modprobe.d/modprobe.conf
+if [ -f /etc/modprobe.conf ]; then
+	mv -f /etc/modprobe.conf /etc/modprobe.conf.rpmsave
+	if [ -f /etc/modprobe.d/modprobe.conf ]; then
+		mv -f /etc/modprobe.conf /etc/modprobe.d/modprobe.conf.rpmnew
+	else
+		mv -f /etc/modprobe.conf /etc/modprobe.d/modprobe.conf
+	fi
+fi
 
 %files
 %defattr(644,root,root,755)
