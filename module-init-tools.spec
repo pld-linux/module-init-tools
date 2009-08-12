@@ -133,7 +133,7 @@ if [ -f /etc/modprobe.conf.rpmsave ]; then
 	cp -f /etc/modprobe.d/modprobe.conf{,.rpmnew}
 	mv -f /etc/modprobe.conf.rpmsave /etc/modprobe.d/modprobe.conf
 %banner -e %{name} << 'EOF'
-Moved /etc/modprobe.conf to /etc/modprobe.d/modprobe.conf.
+Moved modprobe.conf to /etc/modprobe.d/modprobe.conf.
 EOF
 fi
 
