@@ -14,7 +14,7 @@ Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.10
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
@@ -35,6 +35,7 @@ BuildRequires:	zlib-static
 %{?with_dietlibc:BuildRequires:	dietlibc-static}
 %endif
 Obsoletes:	modutils
+Conflicts:	rc-scripts < 0.4.2.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_bindir		/sbin
