@@ -1,3 +1,5 @@
+# TODO:
+# - zlib-capable initrd insmod requires using glibc-static or separate zlib compiled for dietlibc
 #
 # Conditional build
 %bcond_without	initrd		# don't build initrd package
@@ -13,16 +15,15 @@ Summary(ru.UTF-8):	Утилиты для работы с модулями ядр
 Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	3.10
-Release:	2
+Version:	3.12
+Release:	0.1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	fcde0344ad07c4ae2ae6b40918fd092d
+# Source0-md5:	8b2257ce9abef74c4a44d825d23140f3
 Source1:	%{name}-blacklist
 Source2:	%{name}-usb
 Patch0:		%{name}-max.patch
-Patch1:		%{name}-ac.patch
 Patch2:		%{name}-insmod-zlib.patch
 Patch3:		%{name}-sparc.patch
 Patch4:		%{name}-modprobe_d.patch
@@ -69,7 +70,6 @@ Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initr
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 %patch2 -p1
 # huh?
 # %patch3 -p1
@@ -84,7 +84,7 @@ Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initr
 %configure \
 	%{?with_dietlibc:CC="diet %{__cc} %{rpmcflags} %{rpmldflags} -Os -static"} \
 	%{!?with_dietlibc:CC="%{__cc} -static"} \
-	--enable-zlib
+	%{!?with_dietlibc:--enable-zlib}
 
 %{__make}
 

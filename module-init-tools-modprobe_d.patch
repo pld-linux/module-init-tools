@@ -1,7 +1,6 @@
-diff -Nur module-init-tools-3.2.2/modprobe.c module-init-tools-3.2.2.modprobe_d/modprobe.c
---- module-init-tools-3.2.2/modprobe.c	2005-12-02 00:42:09.000000000 +0100
-+++ module-init-tools-3.2.2.modprobe_d/modprobe.c	2006-01-21 03:11:18.000000000 +0100
-@@ -73,6 +74,8 @@
+--- module-init-tools-3.12/modprobe.c.orig	2010-05-04 07:19:27.000000000 +0200
++++ module-init-tools-3.12/modprobe.c	2010-08-15 09:15:37.990822457 +0200
+@@ -82,6 +82,8 @@
  
  } modprobe_flags_t;
  
@@ -10,7 +9,7 @@ diff -Nur module-init-tools-3.2.2/modprobe.c module-init-tools-3.2.2.modprobe_d/
  #ifndef MODULE_DIR
  #define MODULE_DIR "/lib/modules"
  #endif
-@@ -867,19 +870,27 @@
+@@ -1065,19 +1067,27 @@
  		/* sort files from directory into list */
  		while ((i = readdir(dir)) != NULL) {
  			size_t len;
@@ -40,23 +39,22 @@ diff -Nur module-init-tools-3.2.2/modprobe.c module-init-tools-3.2.2.modprobe_d/
  			fe = malloc(sizeof(struct file_entry) + len + 1);
  			if (fe == NULL)
  				continue;
-@@ -940,6 +951,11 @@
+@@ -1129,6 +1139,10 @@
  		warn("Deprecated config file /etc/modprobe.conf, "
  		      "all config files belong into /etc/modprobe.d/.\n");
  
 +	/* kernel ver based config */
 +	if ( modprobe_d_ver != NULL )
-+			parse_config_scan(modprobe_d_ver, name, dump_only, removing,
-+							options, commands, aliases, blacklist);
++			parse_config_scan(modprobe_d_ver, conf, dump_only, removing);
 +
  	/* default config */
- 	parse_config_scan("/etc/modprobe.d", name, dump_only, removing,
- 			  options, commands, aliases, blacklist);
-@@ -1509,6 +1525,7 @@
+ 	parse_config_scan("/etc/modprobe.d", conf, dump_only, removing);
+ }
+@@ -1815,6 +1829,7 @@
  		print_usage(argv[0]);
  
  	nofail_asprintf(&dirname, "%s%s/%s", basedir, MODULE_DIR, buf.release);
 +	nofail_asprintf(&modprobe_d_ver, "/etc/modprobe.d/%s", buf.release);
- 	nofail_asprintf(&aliasfilename, "%s/modules.alias", dirname);
- 	nofail_asprintf(&symfilename, "%s/modules.symbols", dirname);
  
+ 	/* Old-style -t xxx wildcard?  Only with -l. */
+ 	if (list_only) {
