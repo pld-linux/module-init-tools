@@ -22,6 +22,7 @@ Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{ve
 Source1:	%{name}-blacklist
 Source2:	%{name}-usb
 Patch0:		%{name}-max.patch
+Patch1:		%{name}-ac.patch
 Patch2:		%{name}-insmod-zlib.patch
 Patch3:		%{name}-sparc.patch
 Patch4:		%{name}-modprobe_d.patch
@@ -68,6 +69,7 @@ Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initr
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 %patch2 -p1
 # huh?
 # %patch3 -p1
@@ -140,15 +142,28 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog NEWS README
+%doc AUTHORS ChangeLog FAQ NEWS README TODO
 %dir /etc/modprobe.d
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/*.conf
-%attr(755,root,root) %{_sbindir}/*
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/blacklist.conf
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/modprobe.conf
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/usb.conf
+%attr(755,root,root) %{_sbindir}/depmod
+%attr(755,root,root) %{_sbindir}/insmod
+%attr(755,root,root) %{_sbindir}/insmod.static
+%attr(755,root,root) %{_sbindir}/lsmod
+%attr(755,root,root) %{_sbindir}/modinfo
+%attr(755,root,root) %{_sbindir}/modprobe
+%attr(755,root,root) %{_sbindir}/rmmod
 %{_mandir}/man5/depmod.conf.5*
 %{_mandir}/man5/modprobe.conf.5*
 %{_mandir}/man5/modprobe.d.5*
 %{_mandir}/man5/modules.dep.5*
-%{_mandir}/man8/*.8*
+%{_mandir}/man8/depmod.8*
+%{_mandir}/man8/insmod.8*
+%{_mandir}/man8/lsmod.8*
+%{_mandir}/man8/modinfo.8*
+%{_mandir}/man8/modprobe.8*
+%{_mandir}/man8/rmmod.8*
 
 %if %{with initrd}
 %files initrd
