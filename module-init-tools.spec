@@ -31,7 +31,7 @@ Patch4:		%{name}-modprobe_d.patch
 URL:		http://www.kerneltools.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	docbook-to-man
+#BuildRequires:	docbook-to-man
 BuildRequires:	glibc-static
 BuildRequires:	zlib-static
 %if %{with initrd}
