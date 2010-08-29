@@ -1,8 +1,8 @@
 #
 # Conditional build
-%bcond_without	initrd		# don't build initrd package
+%bcond_with		initrd		# don't build initrd package
 %bcond_without	dietlibc	# don't link with dietlibc, use glibc
-#
+
 Summary:	Module utilities without kerneld
 Summary(de.UTF-8):	Module-Utilities
 Summary(es.UTF-8):	Utilitarios para módulos y kerneld
@@ -14,7 +14,7 @@ Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.5
-Release:	5
+Release:	6
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
