@@ -81,8 +81,10 @@ Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initr
 %{__automake}
 
 %if %{with initrd}
+dietcc="%{__cc}"
+dietcc=${dietcc#*ccache }
 %configure \
-	%{?with_dietlibc:CC="diet %{__cc} %{rpmcflags} %{rpmldflags} -Os -static"} \
+	%{?with_dietlibc:CC="${dietcc} %{rpmcflags} %{rpmldflags} -Os -static"} \
 	%{!?with_dietlibc:CC="%{__cc} -static"} \
 	%{!?with_dietlibc:--enable-zlib}
 
