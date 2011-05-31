@@ -9,36 +9,37 @@
  #ifndef MODULE_DIR
  #define MODULE_DIR "/lib/modules"
  #endif
-@@ -1065,19 +1067,27 @@
- 		/* sort files from directory into list */
- 		while ((i = readdir(dir)) != NULL) {
- 			size_t len;
-+			struct stat statbuf;
-+			char statpath[PATH_MAX];
+@@ -1065,20 +1067,28 @@
+ 	 		/* sort files from directory into list, ignoring duplicates */
+ 			while ((i = readdir(dir)) != NULL) {
+ 				size_t len;
+ 				int cmp = -1;
++				struct stat statbuf;
++				char statpath[PATH_MAX];
  
- 			if (i->d_name[0] == '.')
- 				continue;
- 			if (!config_filter(i->d_name))
- 				continue;
+ 				if (i->d_name[0] == '.')
+ 					continue;
+ 				if (!config_filter(i->d_name))
+ 					continue;
  
-+			snprintf(statpath, sizeof(statpath), "%s/%s", filename, i->d_name);
-+			if ((stat(statpath, &statbuf) == 0) && (S_ISDIR(statbuf.st_mode)))
-+				continue;
++				snprintf(statpath, sizeof(statpath), "%s/%s", filename, i->d_name);
++				if ((stat(statpath, &statbuf) == 0) && (S_ISDIR(statbuf.st_mode)))
++					continue;
 +
- 			len = strlen(i->d_name);
- 			if (len < 6 ||
- 			    (strcmp(&i->d_name[len-5], ".conf") != 0 &&
--			     strcmp(&i->d_name[len-6], ".alias") != 0))
-+			     strcmp(&i->d_name[len-6], ".alias") != 0)) {
- 				warn("All config files need .conf: %s/%s, "
--				     "it will be ignored in a future release.\n",
-+				     "Ignoring non conformant file.\n",
- 				     filename, i->d_name);
-+				continue;
-+			}
- 			fe = malloc(sizeof(struct file_entry) + len + 1);
- 			if (fe == NULL)
- 				continue;
+ 				len = strlen(i->d_name);
+ 				if (len < 6 ||
+ 				    (strcmp(&i->d_name[len-5], ".conf") != 0 &&
+-				     strcmp(&i->d_name[len-6], ".alias") != 0))
++				     strcmp(&i->d_name[len-6], ".alias") != 0)) {
+ 					warn("All config files need .conf: %s/%s, "
+-					     "it will be ignored in a future release.\n",
++					     "Ignoring non conformant file.\n",
+ 					     filename, i->d_name);
++					continue;
++				}
+ 				fe = malloc(sizeof(struct file_entry));
+ 				if (fe == NULL)
+ 					continue;
 @@ -1129,6 +1139,10 @@
  		warn("Deprecated config file /etc/modprobe.conf, "
  		      "all config files belong into /etc/modprobe.d/.\n");
