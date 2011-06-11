@@ -1,48 +1,63 @@
---- module-init-tools-3.2.2/depmod.c.orig	2005-12-11 00:58:02.030123000 +0000
-+++ module-init-tools-3.2.2/depmod.c	2005-12-11 01:04:28.983222674 +0000
-@@ -17,6 +17,7 @@
+See linux-2.6.x/scripts/mod/modpost.c /munged for the reason
+--- module-init-tools-3.16/depmod.c.orig	2011-06-02 19:55:01.000000000 +0200
++++ module-init-tools-3.16/depmod.c	2011-06-11 20:06:47.385785523 +0200
+@@ -34,6 +34,7 @@
  #include <dirent.h>
  #include <sys/utsname.h>
  #include <sys/mman.h>
 +#include <ctype.h>
  
- #include "zlibsupport.h"
- #include "depmod.h"
-@@ -106,18 +107,33 @@
- struct module *find_symbol(const char *name, const char *modname, int weak)
+ #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
+ 
+@@ -163,26 +164,44 @@
+ 		const char *modname, int weak)
  {
  	struct symbol *s;
 +	char *tempname = (char *)name;
++	const char *tempname2;
  
  	/* For our purposes, .foo matches foo.  PPC64 needs this. */
- 	if (name[0] == '.')
+-	if (name[0] == '.')
 -		name++;
+-	name = skip_symprefix(name);
++	if (name[0] == '.') {
 +#ifdef __sparc__
-+	{ /* special mangling for .div/.mul/.rem/.udiv/.umul/.urem */
++		/* special mangling for .div/.mul/.rem/.udiv/.umul/.urem */
 +		tempname = strdup(name);
 +		tempname[0] = '_';
 +		tempname[1] = toupper(name[1]);
-+	}
 +#else
 +		tempname = ++name;
 +#endif
++	}
++	tempname2 = skip_symprefix(tempname);
  
 -	for (s = symbolhash[tdb_hash(name) % SYMBOL_HASH_SIZE]; s; s=s->next) {
 -		if (streq(s->name, name))
-+	for (s = symbolhash[tdb_hash(tempname) % SYMBOL_HASH_SIZE]; s; s=s->next) {
-+		if (streq(s->name, tempname)) {
-+			if(tempname != name)
-+				free(tempname);
- 			return s->owner;
-+		}
++	for (s = symbolhash[tdb_hash(tempname2) % SYMBOL_HASH_SIZE]; s; s=s->next) {
++		if (streq(s->name, tempname2))
+ 			break;
+ 	}
+ 	if (s) {
+ 		if (ver && s->ver && s->ver != ver && print_unknown && !weak)
+ 			warn("%s disagrees about version of symbol %s\n",
+-					modname, name);
++					modname, tempname2);
++#ifdef __sparc__
++		if(tempname != name)
++			free(tempname);
++#endif
+ 		return s->owner;
  	}
  
  	if (print_unknown && !weak)
 -		warn("%s needs unknown symbol %s\n", modname, name);
-+		warn("%s needs unknown symbol %s\n", modname, tempname);
-+
++		warn("%s needs unknown symbol %s\n", modname, tempname2);
+ 
++#ifdef __sparc__
 +	if(tempname != name)
 +		free(tempname);
- 
++#endif
  	return NULL;
  }
+ 

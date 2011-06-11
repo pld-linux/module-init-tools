@@ -7,7 +7,7 @@
 +#ifdef UINT32_MAX
  #define INDEX_PRIORITY_MIN UINT32_MAX
 +#else
-+#define INDEX_PRIORITY_MIN INT_MAX
++#define INDEX_PRIORITY_MIN UINT_MAX
 +#endif
  
  struct index_value {
