@@ -15,12 +15,12 @@ Summary(ru.UTF-8):	Утилиты для работы с модулями ядр
 Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
-Version:	3.13
+Version:	3.16
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	dc575e7df00d9f745bf23b32f927b7a6
+# Source0-md5:	bc44832c6e41707b8447e2847d2019f5
 Source1:	%{name}-blacklist
 Source2:	%{name}-usb
 Patch0:		%{name}-max.patch
@@ -56,7 +56,7 @@ tego samego, co pakiet modutils dla Linuksa 2.4.
 
 %package initrd
 Summary:	Module utilities without kerneld - static binary for initrd
-Summary(pl.UTF-8):	Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initrd
+Summary(pl.UTF-8):	Narzędzia do modułów jądra systemu bez kerneld - statyczne binaria dla initrd
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	geninitrd < 10000.10
@@ -65,7 +65,8 @@ Conflicts:	geninitrd < 10000.10
 Module utilities without kerneld - static binary for initrd.
 
 %description initrd -l pl.UTF-8
-Narzędzia do modułów jądra systemu bez kerneld - statyczne binarki dla initrd.
+Narzędzia do modułów jądra systemu bez kerneld - statyczne binaria dla
+initrd.
 
 %prep
 %setup -q
@@ -157,9 +158,11 @@ fi
 %attr(755,root,root) %{_sbindir}/modprobe
 %attr(755,root,root) %{_sbindir}/rmmod
 %{_mandir}/man5/depmod.conf.5*
+%{_mandir}/man5/depmod.d.5*
 %{_mandir}/man5/modprobe.conf.5*
 %{_mandir}/man5/modprobe.d.5*
 %{_mandir}/man5/modules.dep.5*
+%{_mandir}/man5/modules.dep.bin.5*
 %{_mandir}/man8/depmod.8*
 %{_mandir}/man8/insmod.8*
 %{_mandir}/man8/lsmod.8*
