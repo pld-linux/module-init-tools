@@ -1,6 +1,6 @@
---- module-init-tools-3.12/modprobe.c.orig	2010-05-04 07:19:27.000000000 +0200
-+++ module-init-tools-3.12/modprobe.c	2010-08-15 09:15:37.990822457 +0200
-@@ -82,6 +82,8 @@
+--- module-init-tools-3.16/modprobe.c.org	2011-08-15 18:27:47.961488079 +0200
++++ module-init-tools-3.16/modprobe.c	2011-08-15 18:28:35.239355945 +0200
+@@ -86,6 +86,8 @@
  
  } modprobe_flags_t;
  
@@ -9,8 +9,7 @@
  #ifndef MODULE_DIR
  #define MODULE_DIR "/lib/modules"
  #endif
-@@ -1065,20 +1067,28 @@
- 	 		/* sort files from directory into list, ignoring duplicates */
+@@ -1333,19 +1335,27 @@
  			while ((i = readdir(dir)) != NULL) {
  				size_t len;
  				int cmp = -1;
@@ -40,18 +39,16 @@
  				fe = malloc(sizeof(struct file_entry));
  				if (fe == NULL)
  					continue;
-@@ -1129,6 +1139,10 @@
- 		warn("Deprecated config file /etc/modprobe.conf, "
- 		      "all config files belong into /etc/modprobe.d/.\n");
- 
-+	/* kernel ver based config */
-+	if ( modprobe_d_ver != NULL )
-+			parse_config_scan(modprobe_d_ver, conf, dump_only, removing);
-+
+@@ -1428,7 +1438,7 @@
  	/* default config */
- 	parse_config_scan("/etc/modprobe.d", conf, dump_only, removing);
+ 	parse_config_scan(conf, dump_only, removing, "/run/modprobe.d",
+ 			  "/etc/modprobe.d", "/usr/local/lib/modprobe.d",
+-			  "/lib/modprobe.d", NULL);
++			  "/lib/modprobe.d", modprobe_d_ver, NULL);
  }
-@@ -1815,6 +1829,7 @@
+ 
+ /**
+@@ -2234,6 +2244,7 @@
  		print_usage(argv[0]);
  
  	nofail_asprintf(&dirname, "%s%s/%s", basedir, MODULE_DIR, buf.release);
