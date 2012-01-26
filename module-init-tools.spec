@@ -85,6 +85,9 @@ initrd.
 dietcc="%{__cc}"
 dietcc=${dietcc#*ccache }
 %configure \
+%if "%{?configure_cache}" == "1"
+	--cache-file=%{?configure_cache_file}%{!?configure_cache_file:configure}-initrd.cache \
+%endif
 	%{?with_dietlibc:CC="${dietcc} %{rpmcflags} %{rpmldflags} -Os -static"} \
 	%{!?with_dietlibc:CC="%{__cc} -static"} \
 	%{!?with_dietlibc:--enable-zlib}
