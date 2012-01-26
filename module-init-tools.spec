@@ -33,6 +33,7 @@ BuildRequires:	automake
 BuildRequires:	docbook-to-man
 BuildRequires:	glibc-static
 BuildRequires:	zlib-static
+BuildConflicts:	docbook2X
 %if %{with initrd}
 %{?with_dietlibc:BuildRequires:	dietlibc-static}
 %endif
@@ -146,9 +147,9 @@ fi
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog FAQ NEWS README TODO
 %dir /etc/modprobe.d
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/blacklist.conf
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/modprobe.conf
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/usb.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/blacklist.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/modprobe.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/modprobe.d/usb.conf
 %attr(755,root,root) %{_sbindir}/depmod
 %attr(755,root,root) %{_sbindir}/insmod
 %attr(755,root,root) %{_sbindir}/insmod.static
