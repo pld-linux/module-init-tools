@@ -16,7 +16,7 @@ Summary(tr.UTF-8):	Modül programları
 Summary(uk.UTF-8):	Утиліти для роботи з модулями ядра
 Name:		module-init-tools
 Version:	3.16
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://kernel.org/pub/linux/utils/kernel/module-init-tools/%{name}-%{version}.tar.bz2
@@ -37,6 +37,7 @@ BuildConflicts:	docbook2X
 %if %{with initrd}
 %{?with_dietlibc:BuildRequires:	dietlibc-static}
 %endif
+Provides:	virtual(module-tools)
 Obsoletes:	modutils
 Conflicts:	rc-scripts < 0.4.2.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
